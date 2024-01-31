@@ -17,7 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private BidOffer() {
     symbol_ = "";
-    price_ = 0;
+    price_ = 0D;
     numberOfOffers_ = 0;
     clientId_ = "";
   }
@@ -52,9 +52,9 @@ private static final long serialVersionUID = 0L;
             symbol_ = s;
             break;
           }
-          case 16: {
+          case 17: {
 
-            price_ = input.readInt32();
+            price_ = input.readDouble();
             break;
           }
           case 24: {
@@ -135,11 +135,11 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PRICE_FIELD_NUMBER = 2;
-  private int price_;
+  private double price_;
   /**
-   * <code>int32 price = 2;</code>
+   * <code>double price = 2;</code>
    */
-  public int getPrice() {
+  public double getPrice() {
     return price_;
   }
 
@@ -203,8 +203,8 @@ private static final long serialVersionUID = 0L;
     if (!getSymbolBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, symbol_);
     }
-    if (price_ != 0) {
-      output.writeInt32(2, price_);
+    if (price_ != 0D) {
+      output.writeDouble(2, price_);
     }
     if (numberOfOffers_ != 0) {
       output.writeInt32(3, numberOfOffers_);
@@ -224,9 +224,9 @@ private static final long serialVersionUID = 0L;
     if (!getSymbolBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, symbol_);
     }
-    if (price_ != 0) {
+    if (price_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, price_);
+        .computeDoubleSize(2, price_);
     }
     if (numberOfOffers_ != 0) {
       size += com.google.protobuf.CodedOutputStream
@@ -253,8 +253,10 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && getSymbol()
         .equals(other.getSymbol());
-    result = result && (getPrice()
-        == other.getPrice());
+    result = result && (
+        java.lang.Double.doubleToLongBits(getPrice())
+        == java.lang.Double.doubleToLongBits(
+            other.getPrice()));
     result = result && (getNumberOfOffers()
         == other.getNumberOfOffers());
     result = result && getClientId()
@@ -273,7 +275,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + SYMBOL_FIELD_NUMBER;
     hash = (53 * hash) + getSymbol().hashCode();
     hash = (37 * hash) + PRICE_FIELD_NUMBER;
-    hash = (53 * hash) + getPrice();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getPrice()));
     hash = (37 * hash) + NUMBEROFOFFERS_FIELD_NUMBER;
     hash = (53 * hash) + getNumberOfOffers();
     hash = (37 * hash) + CLIENTID_FIELD_NUMBER;
@@ -413,7 +416,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       symbol_ = "";
 
-      price_ = 0;
+      price_ = 0D;
 
       numberOfOffers_ = 0;
 
@@ -501,7 +504,7 @@ private static final long serialVersionUID = 0L;
         symbol_ = other.symbol_;
         onChanged();
       }
-      if (other.getPrice() != 0) {
+      if (other.getPrice() != 0D) {
         setPrice(other.getPrice());
       }
       if (other.getNumberOfOffers() != 0) {
@@ -609,28 +612,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int price_ ;
+    private double price_ ;
     /**
-     * <code>int32 price = 2;</code>
+     * <code>double price = 2;</code>
      */
-    public int getPrice() {
+    public double getPrice() {
       return price_;
     }
     /**
-     * <code>int32 price = 2;</code>
+     * <code>double price = 2;</code>
      */
-    public Builder setPrice(int value) {
+    public Builder setPrice(double value) {
       
       price_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 price = 2;</code>
+     * <code>double price = 2;</code>
      */
     public Builder clearPrice() {
       
-      price_ = 0;
+      price_ = 0D;
       onChanged();
       return this;
     }

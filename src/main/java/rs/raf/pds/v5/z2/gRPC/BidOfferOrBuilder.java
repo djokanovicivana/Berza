@@ -18,9 +18,9 @@ public interface BidOfferOrBuilder extends
       getSymbolBytes();
 
   /**
-   * <code>int32 price = 2;</code>
+   * <code>double price = 2;</code>
    */
-  int getPrice();
+  double getPrice();
 
   /**
    * <code>int32 numberOfOffers = 3;</code>

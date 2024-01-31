@@ -12,6 +12,8 @@ service BerzaService {
   rpc RegisterClient(Client) returns (RegisterResponse) {}
   rpc Ask(AskRequest) returns (AskResponse) {}
   rpc Bid(BidRequest) returns (BidResponse) {}
+  rpc SellOrder(SellOrderRequest) returns (SellOrderResponse) {}
+  rpc BuyOrder (BuyOrderRequest) returns (BuyOrderResponse){}
 }
 
 // Struktura koja sadrži informacije o kompaniji
@@ -63,7 +65,7 @@ message AskRequest{
 }
 message AskOffer{
   string symbol=1;
-  int32 price=2;
+  double price=2;
   int32 numberOfOffers=3;
   string clientId=4;
 }
@@ -76,11 +78,29 @@ message BidRequest{
 }
 message BidOffer{
   string symbol=1;
-  int32 price=2;
+  double price=2;
   int32 numberOfOffers=3;
   string clientId=4;
 }
 message BidResponse{
   repeated BidOffer offers=1;
+}
+message SellOrderRequest{
+  string symbol=1;
+  double price=2;
+  int32 numberOfShares=3;
+}
+message BuyOrderRequest{
+  string symbol=1;
+  double price=2;
+  int32 numberOfShares=3;
+}
+message SellOrderResponse{
+  bool success=1;
+  string message=2;
+}
+message BuyOrderResponse{
+  bool success=1;
+  string message=2;
 }
 

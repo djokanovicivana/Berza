@@ -3,8 +3,8 @@
 
 package rs.raf.pds.v5.z2.gRPC;
 
-public interface AskOfferOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:rs.raf.pds.v5.z2.gRPC.AskOffer)
+public interface SellOrderRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:rs.raf.pds.v5.z2.gRPC.SellOrderRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -23,17 +23,7 @@ public interface AskOfferOrBuilder extends
   double getPrice();
 
   /**
-   * <code>int32 numberOfOffers = 3;</code>
+   * <code>int32 numberOfShares = 3;</code>
    */
-  int getNumberOfOffers();
-
-  /**
-   * <code>string clientId = 4;</code>
-   */
-  java.lang.String getClientId();
-  /**
-   * <code>string clientId = 4;</code>
-   */
-  com.google.protobuf.ByteString
-      getClientIdBytes();
+  int getNumberOfShares();
 }

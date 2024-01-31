@@ -4,22 +4,20 @@
 package rs.raf.pds.v5.z2.gRPC;
 
 /**
- * Protobuf type {@code rs.raf.pds.v5.z2.gRPC.AskOffer}
+ * Protobuf type {@code rs.raf.pds.v5.z2.gRPC.BuyOrderResponse}
  */
-public  final class AskOffer extends
+public  final class BuyOrderResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rs.raf.pds.v5.z2.gRPC.AskOffer)
-    AskOfferOrBuilder {
+    // @@protoc_insertion_point(message_implements:rs.raf.pds.v5.z2.gRPC.BuyOrderResponse)
+    BuyOrderResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use AskOffer.newBuilder() to construct.
-  private AskOffer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use BuyOrderResponse.newBuilder() to construct.
+  private BuyOrderResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private AskOffer() {
-    symbol_ = "";
-    price_ = 0D;
-    numberOfOffers_ = 0;
-    clientId_ = "";
+  private BuyOrderResponse() {
+    success_ = false;
+    message_ = "";
   }
 
   @java.lang.Override
@@ -27,7 +25,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private AskOffer(
+  private BuyOrderResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -46,26 +44,15 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
+          case 8: {
+
+            success_ = input.readBool();
+            break;
+          }
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            symbol_ = s;
-            break;
-          }
-          case 17: {
-
-            price_ = input.readDouble();
-            break;
-          }
-          case 24: {
-
-            numberOfOffers_ = input.readInt32();
-            break;
-          }
-          case 34: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            clientId_ = s;
+            message_ = s;
             break;
           }
           default: {
@@ -89,97 +76,54 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_AskOffer_descriptor;
+    return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_AskOffer_fieldAccessorTable
+    return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            rs.raf.pds.v5.z2.gRPC.AskOffer.class, rs.raf.pds.v5.z2.gRPC.AskOffer.Builder.class);
+            rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.class, rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.Builder.class);
   }
 
-  public static final int SYMBOL_FIELD_NUMBER = 1;
-  private volatile java.lang.Object symbol_;
+  public static final int SUCCESS_FIELD_NUMBER = 1;
+  private boolean success_;
   /**
-   * <code>string symbol = 1;</code>
+   * <code>bool success = 1;</code>
    */
-  public java.lang.String getSymbol() {
-    java.lang.Object ref = symbol_;
+  public boolean getSuccess() {
+    return success_;
+  }
+
+  public static final int MESSAGE_FIELD_NUMBER = 2;
+  private volatile java.lang.Object message_;
+  /**
+   * <code>string message = 2;</code>
+   */
+  public java.lang.String getMessage() {
+    java.lang.Object ref = message_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      symbol_ = s;
+      message_ = s;
       return s;
     }
   }
   /**
-   * <code>string symbol = 1;</code>
+   * <code>string message = 2;</code>
    */
   public com.google.protobuf.ByteString
-      getSymbolBytes() {
-    java.lang.Object ref = symbol_;
+      getMessageBytes() {
+    java.lang.Object ref = message_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      symbol_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
-  public static final int PRICE_FIELD_NUMBER = 2;
-  private double price_;
-  /**
-   * <code>double price = 2;</code>
-   */
-  public double getPrice() {
-    return price_;
-  }
-
-  public static final int NUMBEROFOFFERS_FIELD_NUMBER = 3;
-  private int numberOfOffers_;
-  /**
-   * <code>int32 numberOfOffers = 3;</code>
-   */
-  public int getNumberOfOffers() {
-    return numberOfOffers_;
-  }
-
-  public static final int CLIENTID_FIELD_NUMBER = 4;
-  private volatile java.lang.Object clientId_;
-  /**
-   * <code>string clientId = 4;</code>
-   */
-  public java.lang.String getClientId() {
-    java.lang.Object ref = clientId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      clientId_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string clientId = 4;</code>
-   */
-  public com.google.protobuf.ByteString
-      getClientIdBytes() {
-    java.lang.Object ref = clientId_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      clientId_ = b;
+      message_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -200,17 +144,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getSymbolBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, symbol_);
+    if (success_ != false) {
+      output.writeBool(1, success_);
     }
-    if (price_ != 0D) {
-      output.writeDouble(2, price_);
-    }
-    if (numberOfOffers_ != 0) {
-      output.writeInt32(3, numberOfOffers_);
-    }
-    if (!getClientIdBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, clientId_);
+    if (!getMessageBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
     unknownFields.writeTo(output);
   }
@@ -221,19 +159,12 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getSymbolBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, symbol_);
-    }
-    if (price_ != 0D) {
+    if (success_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(2, price_);
+        .computeBoolSize(1, success_);
     }
-    if (numberOfOffers_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, numberOfOffers_);
-    }
-    if (!getClientIdBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, clientId_);
+    if (!getMessageBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -245,22 +176,16 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof rs.raf.pds.v5.z2.gRPC.AskOffer)) {
+    if (!(obj instanceof rs.raf.pds.v5.z2.gRPC.BuyOrderResponse)) {
       return super.equals(obj);
     }
-    rs.raf.pds.v5.z2.gRPC.AskOffer other = (rs.raf.pds.v5.z2.gRPC.AskOffer) obj;
+    rs.raf.pds.v5.z2.gRPC.BuyOrderResponse other = (rs.raf.pds.v5.z2.gRPC.BuyOrderResponse) obj;
 
     boolean result = true;
-    result = result && getSymbol()
-        .equals(other.getSymbol());
-    result = result && (
-        java.lang.Double.doubleToLongBits(getPrice())
-        == java.lang.Double.doubleToLongBits(
-            other.getPrice()));
-    result = result && (getNumberOfOffers()
-        == other.getNumberOfOffers());
-    result = result && getClientId()
-        .equals(other.getClientId());
+    result = result && (getSuccess()
+        == other.getSuccess());
+    result = result && getMessage()
+        .equals(other.getMessage());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -272,83 +197,79 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + SYMBOL_FIELD_NUMBER;
-    hash = (53 * hash) + getSymbol().hashCode();
-    hash = (37 * hash) + PRICE_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getPrice()));
-    hash = (37 * hash) + NUMBEROFOFFERS_FIELD_NUMBER;
-    hash = (53 * hash) + getNumberOfOffers();
-    hash = (37 * hash) + CLIENTID_FIELD_NUMBER;
-    hash = (53 * hash) + getClientId().hashCode();
+    hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getSuccess());
+    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(byte[] data)
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(java.io.InputStream input)
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseDelimitedFrom(java.io.InputStream input)
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseDelimitedFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer parseFrom(
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -361,7 +282,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(rs.raf.pds.v5.z2.gRPC.AskOffer prototype) {
+  public static Builder newBuilder(rs.raf.pds.v5.z2.gRPC.BuyOrderResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -377,26 +298,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code rs.raf.pds.v5.z2.gRPC.AskOffer}
+   * Protobuf type {@code rs.raf.pds.v5.z2.gRPC.BuyOrderResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rs.raf.pds.v5.z2.gRPC.AskOffer)
-      rs.raf.pds.v5.z2.gRPC.AskOfferOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rs.raf.pds.v5.z2.gRPC.BuyOrderResponse)
+      rs.raf.pds.v5.z2.gRPC.BuyOrderResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_AskOffer_descriptor;
+      return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_AskOffer_fieldAccessorTable
+      return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              rs.raf.pds.v5.z2.gRPC.AskOffer.class, rs.raf.pds.v5.z2.gRPC.AskOffer.Builder.class);
+              rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.class, rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.Builder.class);
     }
 
-    // Construct using rs.raf.pds.v5.z2.gRPC.AskOffer.newBuilder()
+    // Construct using rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -414,13 +335,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      symbol_ = "";
+      success_ = false;
 
-      price_ = 0D;
-
-      numberOfOffers_ = 0;
-
-      clientId_ = "";
+      message_ = "";
 
       return this;
     }
@@ -428,17 +345,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_AskOffer_descriptor;
+      return rs.raf.pds.v5.z2.gRPC.BerzaServiceOuterClass.internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_descriptor;
     }
 
     @java.lang.Override
-    public rs.raf.pds.v5.z2.gRPC.AskOffer getDefaultInstanceForType() {
-      return rs.raf.pds.v5.z2.gRPC.AskOffer.getDefaultInstance();
+    public rs.raf.pds.v5.z2.gRPC.BuyOrderResponse getDefaultInstanceForType() {
+      return rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.getDefaultInstance();
     }
 
     @java.lang.Override
-    public rs.raf.pds.v5.z2.gRPC.AskOffer build() {
-      rs.raf.pds.v5.z2.gRPC.AskOffer result = buildPartial();
+    public rs.raf.pds.v5.z2.gRPC.BuyOrderResponse build() {
+      rs.raf.pds.v5.z2.gRPC.BuyOrderResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -446,12 +363,10 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public rs.raf.pds.v5.z2.gRPC.AskOffer buildPartial() {
-      rs.raf.pds.v5.z2.gRPC.AskOffer result = new rs.raf.pds.v5.z2.gRPC.AskOffer(this);
-      result.symbol_ = symbol_;
-      result.price_ = price_;
-      result.numberOfOffers_ = numberOfOffers_;
-      result.clientId_ = clientId_;
+    public rs.raf.pds.v5.z2.gRPC.BuyOrderResponse buildPartial() {
+      rs.raf.pds.v5.z2.gRPC.BuyOrderResponse result = new rs.raf.pds.v5.z2.gRPC.BuyOrderResponse(this);
+      result.success_ = success_;
+      result.message_ = message_;
       onBuilt();
       return result;
     }
@@ -490,28 +405,21 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof rs.raf.pds.v5.z2.gRPC.AskOffer) {
-        return mergeFrom((rs.raf.pds.v5.z2.gRPC.AskOffer)other);
+      if (other instanceof rs.raf.pds.v5.z2.gRPC.BuyOrderResponse) {
+        return mergeFrom((rs.raf.pds.v5.z2.gRPC.BuyOrderResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(rs.raf.pds.v5.z2.gRPC.AskOffer other) {
-      if (other == rs.raf.pds.v5.z2.gRPC.AskOffer.getDefaultInstance()) return this;
-      if (!other.getSymbol().isEmpty()) {
-        symbol_ = other.symbol_;
-        onChanged();
+    public Builder mergeFrom(rs.raf.pds.v5.z2.gRPC.BuyOrderResponse other) {
+      if (other == rs.raf.pds.v5.z2.gRPC.BuyOrderResponse.getDefaultInstance()) return this;
+      if (other.getSuccess() != false) {
+        setSuccess(other.getSuccess());
       }
-      if (other.getPrice() != 0D) {
-        setPrice(other.getPrice());
-      }
-      if (other.getNumberOfOffers() != 0) {
-        setNumberOfOffers(other.getNumberOfOffers());
-      }
-      if (!other.getClientId().isEmpty()) {
-        clientId_ = other.clientId_;
+      if (!other.getMessage().isEmpty()) {
+        message_ = other.message_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -529,11 +437,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      rs.raf.pds.v5.z2.gRPC.AskOffer parsedMessage = null;
+      rs.raf.pds.v5.z2.gRPC.BuyOrderResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (rs.raf.pds.v5.z2.gRPC.AskOffer) e.getUnfinishedMessage();
+        parsedMessage = (rs.raf.pds.v5.z2.gRPC.BuyOrderResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -543,192 +451,97 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object symbol_ = "";
+    private boolean success_ ;
     /**
-     * <code>string symbol = 1;</code>
+     * <code>bool success = 1;</code>
      */
-    public java.lang.String getSymbol() {
-      java.lang.Object ref = symbol_;
+    public boolean getSuccess() {
+      return success_;
+    }
+    /**
+     * <code>bool success = 1;</code>
+     */
+    public Builder setSuccess(boolean value) {
+      
+      success_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool success = 1;</code>
+     */
+    public Builder clearSuccess() {
+      
+      success_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object message_ = "";
+    /**
+     * <code>string message = 2;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        symbol_ = s;
+        message_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string symbol = 1;</code>
+     * <code>string message = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getSymbolBytes() {
-      java.lang.Object ref = symbol_;
+        getMessageBytes() {
+      java.lang.Object ref = message_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        symbol_ = b;
+        message_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string symbol = 1;</code>
+     * <code>string message = 2;</code>
      */
-    public Builder setSymbol(
+    public Builder setMessage(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      symbol_ = value;
+      message_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string symbol = 1;</code>
+     * <code>string message = 2;</code>
      */
-    public Builder clearSymbol() {
+    public Builder clearMessage() {
       
-      symbol_ = getDefaultInstance().getSymbol();
+      message_ = getDefaultInstance().getMessage();
       onChanged();
       return this;
     }
     /**
-     * <code>string symbol = 1;</code>
+     * <code>string message = 2;</code>
      */
-    public Builder setSymbolBytes(
+    public Builder setMessageBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      symbol_ = value;
-      onChanged();
-      return this;
-    }
-
-    private double price_ ;
-    /**
-     * <code>double price = 2;</code>
-     */
-    public double getPrice() {
-      return price_;
-    }
-    /**
-     * <code>double price = 2;</code>
-     */
-    public Builder setPrice(double value) {
-      
-      price_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>double price = 2;</code>
-     */
-    public Builder clearPrice() {
-      
-      price_ = 0D;
-      onChanged();
-      return this;
-    }
-
-    private int numberOfOffers_ ;
-    /**
-     * <code>int32 numberOfOffers = 3;</code>
-     */
-    public int getNumberOfOffers() {
-      return numberOfOffers_;
-    }
-    /**
-     * <code>int32 numberOfOffers = 3;</code>
-     */
-    public Builder setNumberOfOffers(int value) {
-      
-      numberOfOffers_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 numberOfOffers = 3;</code>
-     */
-    public Builder clearNumberOfOffers() {
-      
-      numberOfOffers_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object clientId_ = "";
-    /**
-     * <code>string clientId = 4;</code>
-     */
-    public java.lang.String getClientId() {
-      java.lang.Object ref = clientId_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        clientId_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>string clientId = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getClientIdBytes() {
-      java.lang.Object ref = clientId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        clientId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string clientId = 4;</code>
-     */
-    public Builder setClientId(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      clientId_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string clientId = 4;</code>
-     */
-    public Builder clearClientId() {
-      
-      clientId_ = getDefaultInstance().getClientId();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string clientId = 4;</code>
-     */
-    public Builder setClientIdBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      clientId_ = value;
+      message_ = value;
       onChanged();
       return this;
     }
@@ -745,41 +558,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rs.raf.pds.v5.z2.gRPC.AskOffer)
+    // @@protoc_insertion_point(builder_scope:rs.raf.pds.v5.z2.gRPC.BuyOrderResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:rs.raf.pds.v5.z2.gRPC.AskOffer)
-  private static final rs.raf.pds.v5.z2.gRPC.AskOffer DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rs.raf.pds.v5.z2.gRPC.BuyOrderResponse)
+  private static final rs.raf.pds.v5.z2.gRPC.BuyOrderResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new rs.raf.pds.v5.z2.gRPC.AskOffer();
+    DEFAULT_INSTANCE = new rs.raf.pds.v5.z2.gRPC.BuyOrderResponse();
   }
 
-  public static rs.raf.pds.v5.z2.gRPC.AskOffer getDefaultInstance() {
+  public static rs.raf.pds.v5.z2.gRPC.BuyOrderResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<AskOffer>
-      PARSER = new com.google.protobuf.AbstractParser<AskOffer>() {
+  private static final com.google.protobuf.Parser<BuyOrderResponse>
+      PARSER = new com.google.protobuf.AbstractParser<BuyOrderResponse>() {
     @java.lang.Override
-    public AskOffer parsePartialFrom(
+    public BuyOrderResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new AskOffer(input, extensionRegistry);
+      return new BuyOrderResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<AskOffer> parser() {
+  public static com.google.protobuf.Parser<BuyOrderResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<AskOffer> getParserForType() {
+  public com.google.protobuf.Parser<BuyOrderResponse> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public rs.raf.pds.v5.z2.gRPC.AskOffer getDefaultInstanceForType() {
+  public rs.raf.pds.v5.z2.gRPC.BuyOrderResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 
