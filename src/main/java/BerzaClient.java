@@ -70,6 +70,14 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
             String [] parts=userInput.split(" ",3);
             if(parts.length==3){
                 berzaClient.askForOffers(parts[1], parseInt(parts[2]), berzaClient);
+            }else{
+                System.out.println("Invalid ask format!");
+            }
+        }
+        else if(userInput.startsWith("bid")){
+            String[] parts=userInput.split(" ", 3);
+            if(parts.length==3){
+                berzaClient.bidForOffers(parts[1],parseInt(parts[2]), berzaClient);
             }
         }
 
@@ -95,12 +103,22 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
         for(AskOffer offer: askResponse.getOffersList()){
             System.out.println("Client: "+  offer.getClientId()+
                     ", Company: " + offer.getSymbol()+
-                    ", Number of offers: "+ offer.getNumberOfOffers()+
+                    ", Number of shares: "+ offer.getNumberOfOffers()+
                     ", Price: "+ offer.getPrice());
         };
     }
+    private static void bidForOffers(String symbol, int numberOfOffers, BerzaClient client) {
+     BidRequest bidRequest=BidRequest.newBuilder().setSymbol(symbol).setNumberOfOffers(numberOfOffers).build();
 
+     BidResponse bidResponse=client.blockingStub.bid(bidRequest);
 
+     for(BidOffer offer: bidResponse.getOffersList()){
+         System.out.println("Client: "+  offer.getClientId()+
+                 ", Company: " + offer.getSymbol()+
+                 ", Number of shares: "+ offer.getNumberOfOffers()+
+                 ", Price: "+ offer.getPrice());
+     };
+     }
     public static void main(String[] args) throws UnknownHostException, IOException {
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8090)
                 .usePlaintext()

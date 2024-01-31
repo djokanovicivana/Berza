@@ -121,6 +121,41 @@ public class BerzaServer {
             responseObserver.onCompleted();
 
 
+    }
+    public void bid(BidRequest bidRequest, StreamObserver<BidResponse> responseObserver){
+        BidResponse.Builder bidResponseBuilder=BidResponse.newBuilder();
+        String symbol = bidRequest.getSymbol();
+        List<BidOffer> matchingOffers = new ArrayList<>();
+        int numberOfOffers = bidRequest.getNumberOfOffers();
+
+        for (Map.Entry<String, Client> entry : registeredClients.entrySet()){
+            String clientId = entry.getKey();
+            Client client = entry.getValue();
+            for (BuyOffer offer : client.getBuyOffersList()) {
+                if (offer.getSymbol().equals(symbol)) {
+                    BidOffer bidOffer = BidOffer.newBuilder()
+                            .setSymbol(offer.getSymbol())
+                            .setPrice(offer.getPrice())
+                            .setNumberOfOffers(offer.getTotalShares())
+                            .setClientId(clientId)
+                            .build();
+
+                    matchingOffers.add(bidOffer);
+                }
+
+
+            }
+
+        }
+        matchingOffers.sort(Comparator.comparingInt(askOffer -> askOffer.getPrice() * askOffer.getNumberOfOffers()));
+        List<BidOffer> selectedOffers = matchingOffers.stream().limit(numberOfOffers).collect(Collectors.toList());
+        bidResponseBuilder.addAllOffers(selectedOffers);
+
+
+        responseObserver.onNext(bidResponseBuilder.build());
+        responseObserver.onCompleted();
+
+
     }}}
 
 
