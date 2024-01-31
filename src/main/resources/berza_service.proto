@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package rs.raf.pds.v5.z2.gRPC;
+
+option java_multiple_files = true;
+option java_package = "rs.raf.pds.v5.z2.gRPC";
+
+import "google/protobuf/timestamp.proto";
+
+service BerzaService {
+  rpc GetCompaniesData(CompanyRequest) returns (CompanyList){}
+  rpc RegisterClient(Client) returns (RegisterResponse) {}
+  rpc Ask(AskRequest) returns (AskResponse) {}
+  rpc Bid(BidRequest) returns (BidResponse) {}
+}
+
+// Struktura koja sadrži informacije o kompaniji
+message Company {
+  string symbol = 1;
+  string name = 2;
+  double price = 3;
+  double change = 4;
+  google.protobuf.Timestamp date = 5;
+  double lastPrice=6;
+  repeated double oldPrices=7;
+}
+
+message CompanyList{
+  repeated Company companies = 1;
+}
+
+// Struktura koja predstavlja zahtev za podacima o kompanijama
+message CompanyRequest{
+  string ClientId = 1;
+  repeated string Symbols = 2;
+}
+
+//Struktura koja predstavlja informacije o klijentu
+message Client {
+  string clientId = 1;
+  repeated SaleOffer saleOffers = 2;
+  repeated BuyOffer buyOffers = 3;
+}
+
+message SaleOffer {
+  string symbol = 1;
+  int32 totalShares=2;
+  int32 price=3;
+}
+
+message BuyOffer {
+  string symbol = 1;
+  int32 totalShares=2;
+  int32 price=3;
+}
+
+message RegisterResponse {
+  bool success = 1;
+}
+message AskRequest{
+  string symbol=1;
+  int32 numberOfOffers=2;
+}
+message AskOffer{
+  string symbol=1;
+  int32 price=2;
+  int32 numberOfOffers=3;
+  string clientId=4;
+}
+message AskResponse{
+  repeated AskOffer offers=1;
+}
+message BidRequest{
+  string symbol=1;
+  int32 numberOfOffers=2;
+}
+message BidOffer{
+  string symbol=1;
+  int32 price=2;
+  int32 numberOfOffers=3;
+  string clientId=4;
+}
+message BidResponse{
+  repeated BidOffer offers=1;
+}
+
