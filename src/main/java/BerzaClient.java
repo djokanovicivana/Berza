@@ -45,7 +45,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
     private static Client generateClientInfo() {
         // Generate a unique client ID
         String clientId = UUID.randomUUID().toString();
-      
+
 
         // Create stock information for the client
         SaleOffer stock1 = SaleOffer.newBuilder()
@@ -82,6 +82,17 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
             String[] parts=userInput.split(" ", 3);
             if(parts.length==3){
                 berzaClient.bidForOffers(parts[1],parseInt(parts[2]), berzaClient);
+            }
+            else{
+                System.out.println("Invalid bid format!");
+            }
+        }else if(userInput.startsWith("order sell")){
+            String [] parts=userInput.split(" ", 5);
+            if(parts.length==5){
+                berzaClient.sellOrder(parts[2], parts[3], parts[4], berzaClient);
+            }
+            else{
+                System.out.println("Invalid sell order format!");
             }
         }
 
@@ -123,6 +134,21 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
                  ", Price: "+ offer.getPrice());
      };
      }
+    private static void sellOrder(String symbol, int numberOfShares, double price, BerzaClient client) {
+        try {
+            SellOrderRequest sellOrderRequest = SellOrderRequest.newBuilder()
+                    .setSymbol(symbol)
+                    .setClientId(client.clientInfo.getClientId())
+                    .setPrice(price)
+                    .setNumberOfShares(numberOfShares)
+                    .build();
+            SellOrderResponse sellOrderResponse = client.blockingStub.sellOrder(sellOrderRequest);
+            System.out.print(sellOrderResponse.getMessage());
+        } catch (StatusRuntimeException e) {
+            System.out.println("Error during sellOrder: " + e.getStatus());
+        }
+    }
+
     public static void main(String[] args) throws UnknownHostException, IOException {
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8090)
                 .usePlaintext()
