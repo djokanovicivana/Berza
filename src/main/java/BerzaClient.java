@@ -13,6 +13,7 @@ import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
@@ -89,7 +90,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
         }else if(userInput.startsWith("order sell")){
             String [] parts=userInput.split(" ", 5);
             if(parts.length==5){
-                berzaClient.sellOrder(parts[2], parts[3], parts[4], berzaClient);
+                berzaClient.sellOrder(parts[2], parseInt(parts[3]), parseDouble(parts[4]), berzaClient);
             }
             else{
                 System.out.println("Invalid sell order format!");
