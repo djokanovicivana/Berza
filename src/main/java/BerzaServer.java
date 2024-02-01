@@ -202,7 +202,7 @@ public class BerzaServer {
                     responseObserver.onCompleted();
                 }
             } else {
-               
+
                 responseObserver.onNext(SellOrderResponse.newBuilder().setSuccess(false).setMessage("Client not found").build());
                 responseObserver.onCompleted();
             }

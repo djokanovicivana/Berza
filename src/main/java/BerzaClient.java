@@ -44,8 +44,8 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
 
     private static Client generateClientInfo() {
         // Generate a unique client ID
-
-        String clientId = "Klijent "+ clientCounter.getAndIncrement();
+        String clientId = UUID.randomUUID().toString();
+      
 
         // Create stock information for the client
         SaleOffer stock1 = SaleOffer.newBuilder()
