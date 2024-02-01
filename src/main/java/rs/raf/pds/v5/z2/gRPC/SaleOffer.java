@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private SaleOffer() {
     symbol_ = "";
     totalShares_ = 0;
-    price_ = 0;
+    price_ = 0D;
   }
 
   @java.lang.Override
@@ -56,9 +56,9 @@ private static final long serialVersionUID = 0L;
             totalShares_ = input.readInt32();
             break;
           }
-          case 24: {
+          case 25: {
 
-            price_ = input.readInt32();
+            price_ = input.readDouble();
             break;
           }
           default: {
@@ -137,11 +137,11 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PRICE_FIELD_NUMBER = 3;
-  private int price_;
+  private double price_;
   /**
-   * <code>int32 price = 3;</code>
+   * <code>double price = 3;</code>
    */
-  public int getPrice() {
+  public double getPrice() {
     return price_;
   }
 
@@ -165,8 +165,8 @@ private static final long serialVersionUID = 0L;
     if (totalShares_ != 0) {
       output.writeInt32(2, totalShares_);
     }
-    if (price_ != 0) {
-      output.writeInt32(3, price_);
+    if (price_ != 0D) {
+      output.writeDouble(3, price_);
     }
     unknownFields.writeTo(output);
   }
@@ -184,9 +184,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(2, totalShares_);
     }
-    if (price_ != 0) {
+    if (price_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, price_);
+        .computeDoubleSize(3, price_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -208,8 +208,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getSymbol());
     result = result && (getTotalShares()
         == other.getTotalShares());
-    result = result && (getPrice()
-        == other.getPrice());
+    result = result && (
+        java.lang.Double.doubleToLongBits(getPrice())
+        == java.lang.Double.doubleToLongBits(
+            other.getPrice()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -226,7 +228,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TOTALSHARES_FIELD_NUMBER;
     hash = (53 * hash) + getTotalShares();
     hash = (37 * hash) + PRICE_FIELD_NUMBER;
-    hash = (53 * hash) + getPrice();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getPrice()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -364,7 +367,7 @@ private static final long serialVersionUID = 0L;
 
       totalShares_ = 0;
 
-      price_ = 0;
+      price_ = 0D;
 
       return this;
     }
@@ -450,7 +453,7 @@ private static final long serialVersionUID = 0L;
       if (other.getTotalShares() != 0) {
         setTotalShares(other.getTotalShares());
       }
-      if (other.getPrice() != 0) {
+      if (other.getPrice() != 0D) {
         setPrice(other.getPrice());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -577,28 +580,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int price_ ;
+    private double price_ ;
     /**
-     * <code>int32 price = 3;</code>
+     * <code>double price = 3;</code>
      */
-    public int getPrice() {
+    public double getPrice() {
       return price_;
     }
     /**
-     * <code>int32 price = 3;</code>
+     * <code>double price = 3;</code>
      */
-    public Builder setPrice(int value) {
+    public Builder setPrice(double value) {
       
       price_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 price = 3;</code>
+     * <code>double price = 3;</code>
      */
     public Builder clearPrice() {
       
-      price_ = 0;
+      price_ = 0D;
       onChanged();
       return this;
     }

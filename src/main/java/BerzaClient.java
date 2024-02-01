@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.Integer.parseInt;
 
@@ -20,9 +21,11 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
     private Socket tcpSocket;
     BerzaServiceGrpc.BerzaServiceBlockingStub blockingStub;
     private final ManagedChannel grpcChannel;
+    private static final AtomicInteger clientCounter = new AtomicInteger(0);
 
 
     public BerzaClient(ManagedChannel channel) {
+
         blockingStub = BerzaServiceGrpc.newBlockingStub(channel);
         this.clientInfo = generateClientInfo();
         grpcChannel = channel;
@@ -41,7 +44,8 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
 
     private static Client generateClientInfo() {
         // Generate a unique client ID
-        String clientId = UUID.randomUUID().toString();
+
+        String clientId = "Klijent "+ clientCounter.getAndIncrement();
 
         // Create stock information for the client
         SaleOffer stock1 = SaleOffer.newBuilder()

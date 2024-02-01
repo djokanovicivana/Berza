@@ -23,6 +23,7 @@ private static final long serialVersionUID = 0L;
     clientId_ = "";
     saleOffers_ = java.util.Collections.emptyList();
     buyOffers_ = java.util.Collections.emptyList();
+    shares_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -73,6 +74,15 @@ private static final long serialVersionUID = 0L;
                 input.readMessage(rs.raf.pds.v5.z2.gRPC.BuyOffer.parser(), extensionRegistry));
             break;
           }
+          case 34: {
+            if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              shares_ = new java.util.ArrayList<rs.raf.pds.v5.z2.gRPC.AllShares>();
+              mutable_bitField0_ |= 0x00000008;
+            }
+            shares_.add(
+                input.readMessage(rs.raf.pds.v5.z2.gRPC.AllShares.parser(), extensionRegistry));
+            break;
+          }
           default: {
             if (!parseUnknownFieldProto3(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -93,6 +103,9 @@ private static final long serialVersionUID = 0L;
       }
       if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
         buyOffers_ = java.util.Collections.unmodifiableList(buyOffers_);
+      }
+      if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        shares_ = java.util.Collections.unmodifiableList(shares_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -216,6 +229,41 @@ private static final long serialVersionUID = 0L;
     return buyOffers_.get(index);
   }
 
+  public static final int SHARES_FIELD_NUMBER = 4;
+  private java.util.List<rs.raf.pds.v5.z2.gRPC.AllShares> shares_;
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  public java.util.List<rs.raf.pds.v5.z2.gRPC.AllShares> getSharesList() {
+    return shares_;
+  }
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  public java.util.List<? extends rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder> 
+      getSharesOrBuilderList() {
+    return shares_;
+  }
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  public int getSharesCount() {
+    return shares_.size();
+  }
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  public rs.raf.pds.v5.z2.gRPC.AllShares getShares(int index) {
+    return shares_.get(index);
+  }
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  public rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder getSharesOrBuilder(
+      int index) {
+    return shares_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -239,6 +287,9 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < buyOffers_.size(); i++) {
       output.writeMessage(3, buyOffers_.get(i));
     }
+    for (int i = 0; i < shares_.size(); i++) {
+      output.writeMessage(4, shares_.get(i));
+    }
     unknownFields.writeTo(output);
   }
 
@@ -258,6 +309,10 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < buyOffers_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, buyOffers_.get(i));
+    }
+    for (int i = 0; i < shares_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, shares_.get(i));
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -281,6 +336,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getSaleOffersList());
     result = result && getBuyOffersList()
         .equals(other.getBuyOffersList());
+    result = result && getSharesList()
+        .equals(other.getSharesList());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -301,6 +358,10 @@ private static final long serialVersionUID = 0L;
     if (getBuyOffersCount() > 0) {
       hash = (37 * hash) + BUYOFFERS_FIELD_NUMBER;
       hash = (53 * hash) + getBuyOffersList().hashCode();
+    }
+    if (getSharesCount() > 0) {
+      hash = (37 * hash) + SHARES_FIELD_NUMBER;
+      hash = (53 * hash) + getSharesList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -436,6 +497,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
         getSaleOffersFieldBuilder();
         getBuyOffersFieldBuilder();
+        getSharesFieldBuilder();
       }
     }
     @java.lang.Override
@@ -454,6 +516,12 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
       } else {
         buyOffersBuilder_.clear();
+      }
+      if (sharesBuilder_ == null) {
+        shares_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+      } else {
+        sharesBuilder_.clear();
       }
       return this;
     }
@@ -501,6 +569,15 @@ private static final long serialVersionUID = 0L;
         result.buyOffers_ = buyOffers_;
       } else {
         result.buyOffers_ = buyOffersBuilder_.build();
+      }
+      if (sharesBuilder_ == null) {
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          shares_ = java.util.Collections.unmodifiableList(shares_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.shares_ = shares_;
+      } else {
+        result.shares_ = sharesBuilder_.build();
       }
       result.bitField0_ = to_bitField0_;
       onBuilt();
@@ -604,6 +681,32 @@ private static final long serialVersionUID = 0L;
                  getBuyOffersFieldBuilder() : null;
           } else {
             buyOffersBuilder_.addAllMessages(other.buyOffers_);
+          }
+        }
+      }
+      if (sharesBuilder_ == null) {
+        if (!other.shares_.isEmpty()) {
+          if (shares_.isEmpty()) {
+            shares_ = other.shares_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureSharesIsMutable();
+            shares_.addAll(other.shares_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.shares_.isEmpty()) {
+          if (sharesBuilder_.isEmpty()) {
+            sharesBuilder_.dispose();
+            sharesBuilder_ = null;
+            shares_ = other.shares_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+            sharesBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getSharesFieldBuilder() : null;
+          } else {
+            sharesBuilder_.addAllMessages(other.shares_);
           }
         }
       }
@@ -1184,6 +1287,246 @@ private static final long serialVersionUID = 0L;
         buyOffers_ = null;
       }
       return buyOffersBuilder_;
+    }
+
+    private java.util.List<rs.raf.pds.v5.z2.gRPC.AllShares> shares_ =
+      java.util.Collections.emptyList();
+    private void ensureSharesIsMutable() {
+      if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        shares_ = new java.util.ArrayList<rs.raf.pds.v5.z2.gRPC.AllShares>(shares_);
+        bitField0_ |= 0x00000008;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        rs.raf.pds.v5.z2.gRPC.AllShares, rs.raf.pds.v5.z2.gRPC.AllShares.Builder, rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder> sharesBuilder_;
+
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public java.util.List<rs.raf.pds.v5.z2.gRPC.AllShares> getSharesList() {
+      if (sharesBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(shares_);
+      } else {
+        return sharesBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public int getSharesCount() {
+      if (sharesBuilder_ == null) {
+        return shares_.size();
+      } else {
+        return sharesBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public rs.raf.pds.v5.z2.gRPC.AllShares getShares(int index) {
+      if (sharesBuilder_ == null) {
+        return shares_.get(index);
+      } else {
+        return sharesBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder setShares(
+        int index, rs.raf.pds.v5.z2.gRPC.AllShares value) {
+      if (sharesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSharesIsMutable();
+        shares_.set(index, value);
+        onChanged();
+      } else {
+        sharesBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder setShares(
+        int index, rs.raf.pds.v5.z2.gRPC.AllShares.Builder builderForValue) {
+      if (sharesBuilder_ == null) {
+        ensureSharesIsMutable();
+        shares_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        sharesBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder addShares(rs.raf.pds.v5.z2.gRPC.AllShares value) {
+      if (sharesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSharesIsMutable();
+        shares_.add(value);
+        onChanged();
+      } else {
+        sharesBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder addShares(
+        int index, rs.raf.pds.v5.z2.gRPC.AllShares value) {
+      if (sharesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSharesIsMutable();
+        shares_.add(index, value);
+        onChanged();
+      } else {
+        sharesBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder addShares(
+        rs.raf.pds.v5.z2.gRPC.AllShares.Builder builderForValue) {
+      if (sharesBuilder_ == null) {
+        ensureSharesIsMutable();
+        shares_.add(builderForValue.build());
+        onChanged();
+      } else {
+        sharesBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder addShares(
+        int index, rs.raf.pds.v5.z2.gRPC.AllShares.Builder builderForValue) {
+      if (sharesBuilder_ == null) {
+        ensureSharesIsMutable();
+        shares_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        sharesBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder addAllShares(
+        java.lang.Iterable<? extends rs.raf.pds.v5.z2.gRPC.AllShares> values) {
+      if (sharesBuilder_ == null) {
+        ensureSharesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, shares_);
+        onChanged();
+      } else {
+        sharesBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder clearShares() {
+      if (sharesBuilder_ == null) {
+        shares_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+      } else {
+        sharesBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public Builder removeShares(int index) {
+      if (sharesBuilder_ == null) {
+        ensureSharesIsMutable();
+        shares_.remove(index);
+        onChanged();
+      } else {
+        sharesBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public rs.raf.pds.v5.z2.gRPC.AllShares.Builder getSharesBuilder(
+        int index) {
+      return getSharesFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder getSharesOrBuilder(
+        int index) {
+      if (sharesBuilder_ == null) {
+        return shares_.get(index);  } else {
+        return sharesBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public java.util.List<? extends rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder> 
+         getSharesOrBuilderList() {
+      if (sharesBuilder_ != null) {
+        return sharesBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(shares_);
+      }
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public rs.raf.pds.v5.z2.gRPC.AllShares.Builder addSharesBuilder() {
+      return getSharesFieldBuilder().addBuilder(
+          rs.raf.pds.v5.z2.gRPC.AllShares.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public rs.raf.pds.v5.z2.gRPC.AllShares.Builder addSharesBuilder(
+        int index) {
+      return getSharesFieldBuilder().addBuilder(
+          index, rs.raf.pds.v5.z2.gRPC.AllShares.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+     */
+    public java.util.List<rs.raf.pds.v5.z2.gRPC.AllShares.Builder> 
+         getSharesBuilderList() {
+      return getSharesFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        rs.raf.pds.v5.z2.gRPC.AllShares, rs.raf.pds.v5.z2.gRPC.AllShares.Builder, rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder> 
+        getSharesFieldBuilder() {
+      if (sharesBuilder_ == null) {
+        sharesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            rs.raf.pds.v5.z2.gRPC.AllShares, rs.raf.pds.v5.z2.gRPC.AllShares.Builder, rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder>(
+                shares_,
+                ((bitField0_ & 0x00000008) == 0x00000008),
+                getParentForChildren(),
+                isClean());
+        shares_ = null;
+      }
+      return sharesBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

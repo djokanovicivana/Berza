@@ -112,7 +112,7 @@ public class BerzaServer {
         }
 
             }
-            matchingOffers.sort(Comparator.comparingInt(askOffer -> askOffer.getPrice() * askOffer.getNumberOfOffers()));
+            matchingOffers.sort(Comparator.comparingDouble(askOffer -> askOffer.getPrice() * askOffer.getNumberOfOffers()));
             List<AskOffer> selectedOffers = matchingOffers.stream().limit(numberOfOffers).collect(Collectors.toList());
             askResponseBuilder.addAllOffers(selectedOffers);
 
@@ -147,7 +147,7 @@ public class BerzaServer {
             }
 
         }
-        matchingOffers.sort(Comparator.comparingInt(askOffer -> askOffer.getPrice() * askOffer.getNumberOfOffers()));
+        matchingOffers.sort(Comparator.comparingDouble(askOffer -> askOffer.getPrice() * askOffer.getNumberOfOffers()));
         List<BidOffer> selectedOffers = matchingOffers.stream().limit(numberOfOffers).collect(Collectors.toList());
         bidResponseBuilder.addAllOffers(selectedOffers);
 
@@ -156,6 +156,58 @@ public class BerzaServer {
         responseObserver.onCompleted();
 
 
-    }}}
+    }
+        public void sellOrder(SellOrderRequest sellOrderRequest, StreamObserver<SellOrderResponse> responseObserver) {
+            String clientId = sellOrderRequest.getClientId();
+            Client client = registeredClients.get(clientId);
+            if (client != null) {
+                int requestedShares = sellOrderRequest.getNumberOfShares();
+                String requestedSymbol = sellOrderRequest.getSymbol();
+                double requestedPrice = sellOrderRequest.getPrice();
+                int shareIndex = -1;
+                for (int i = 0; i < client.getSharesCount(); i++) {
+                    if (client.getShares(i).getSymbol().equals(requestedSymbol)) {
+                        shareIndex = i;
+                        break;
+                    }
+                }
+
+                if (shareIndex != -1) {
+                    int sharesNumber = client.getShares(shareIndex).getTotalShares();
+                    if (sharesNumber >= requestedShares) {
+                        int newSharesNumber = sharesNumber - requestedShares;
+                        SaleOffer saleOffer = SaleOffer.newBuilder()
+                                .setSymbol(requestedSymbol)
+                                .setPrice(requestedPrice)
+                                .setTotalShares(requestedShares)
+                                .build();
+
+
+                         client.toBuilder()
+                                .addSaleOffers(saleOffer)
+                                .setShares(shareIndex, client.getShares(shareIndex).toBuilder().setTotalShares(newSharesNumber).build())
+                                .build();
+
+
+                        responseObserver.onNext(SellOrderResponse.newBuilder().setSuccess(true).setMessage("Sell order processed successfully").build());
+                        responseObserver.onCompleted();
+                    } else {
+
+                        responseObserver.onNext(SellOrderResponse.newBuilder().setSuccess(false).setMessage("Not enough available shares").build());
+                        responseObserver.onCompleted();
+                    }
+                } else {
+
+                    responseObserver.onNext(SellOrderResponse.newBuilder().setSuccess(false).setMessage("Symbol not found").build());
+                    responseObserver.onCompleted();
+                }
+            } else {
+               
+                responseObserver.onNext(SellOrderResponse.newBuilder().setSuccess(false).setMessage("Client not found").build());
+                responseObserver.onCompleted();
+            }
+        }
+
+    }}
 
 

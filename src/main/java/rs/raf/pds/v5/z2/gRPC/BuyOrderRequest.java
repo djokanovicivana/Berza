@@ -19,6 +19,7 @@ private static final long serialVersionUID = 0L;
     symbol_ = "";
     price_ = 0D;
     numberOfShares_ = 0;
+    clientId_ = "";
   }
 
   @java.lang.Override
@@ -59,6 +60,12 @@ private static final long serialVersionUID = 0L;
           case 24: {
 
             numberOfShares_ = input.readInt32();
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            clientId_ = s;
             break;
           }
           default: {
@@ -145,6 +152,40 @@ private static final long serialVersionUID = 0L;
     return numberOfShares_;
   }
 
+  public static final int CLIENTID_FIELD_NUMBER = 4;
+  private volatile java.lang.Object clientId_;
+  /**
+   * <code>string clientId = 4;</code>
+   */
+  public java.lang.String getClientId() {
+    java.lang.Object ref = clientId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      clientId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string clientId = 4;</code>
+   */
+  public com.google.protobuf.ByteString
+      getClientIdBytes() {
+    java.lang.Object ref = clientId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      clientId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -168,6 +209,9 @@ private static final long serialVersionUID = 0L;
     if (numberOfShares_ != 0) {
       output.writeInt32(3, numberOfShares_);
     }
+    if (!getClientIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, clientId_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -187,6 +231,9 @@ private static final long serialVersionUID = 0L;
     if (numberOfShares_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(3, numberOfShares_);
+    }
+    if (!getClientIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, clientId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -212,6 +259,8 @@ private static final long serialVersionUID = 0L;
             other.getPrice()));
     result = result && (getNumberOfShares()
         == other.getNumberOfShares());
+    result = result && getClientId()
+        .equals(other.getClientId());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -230,6 +279,8 @@ private static final long serialVersionUID = 0L;
         java.lang.Double.doubleToLongBits(getPrice()));
     hash = (37 * hash) + NUMBEROFSHARES_FIELD_NUMBER;
     hash = (53 * hash) + getNumberOfShares();
+    hash = (37 * hash) + CLIENTID_FIELD_NUMBER;
+    hash = (53 * hash) + getClientId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -369,6 +420,8 @@ private static final long serialVersionUID = 0L;
 
       numberOfShares_ = 0;
 
+      clientId_ = "";
+
       return this;
     }
 
@@ -398,6 +451,7 @@ private static final long serialVersionUID = 0L;
       result.symbol_ = symbol_;
       result.price_ = price_;
       result.numberOfShares_ = numberOfShares_;
+      result.clientId_ = clientId_;
       onBuilt();
       return result;
     }
@@ -455,6 +509,10 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getNumberOfShares() != 0) {
         setNumberOfShares(other.getNumberOfShares());
+      }
+      if (!other.getClientId().isEmpty()) {
+        clientId_ = other.clientId_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -602,6 +660,75 @@ private static final long serialVersionUID = 0L;
     public Builder clearNumberOfShares() {
       
       numberOfShares_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object clientId_ = "";
+    /**
+     * <code>string clientId = 4;</code>
+     */
+    public java.lang.String getClientId() {
+      java.lang.Object ref = clientId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string clientId = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getClientIdBytes() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string clientId = 4;</code>
+     */
+    public Builder setClientId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      clientId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string clientId = 4;</code>
+     */
+    public Builder clearClientId() {
+      
+      clientId_ = getDefaultInstance().getClientId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string clientId = 4;</code>
+     */
+    public Builder setClientIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      clientId_ = value;
       onChanged();
       return this;
     }

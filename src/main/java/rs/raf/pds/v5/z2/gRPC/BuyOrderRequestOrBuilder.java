@@ -26,4 +26,14 @@ public interface BuyOrderRequestOrBuilder extends
    * <code>int32 numberOfShares = 3;</code>
    */
   int getNumberOfShares();
+
+  /**
+   * <code>string clientId = 4;</code>
+   */
+  java.lang.String getClientId();
+  /**
+   * <code>string clientId = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getClientIdBytes();
 }

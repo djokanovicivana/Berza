@@ -64,4 +64,28 @@ public interface ClientOrBuilder extends
    */
   rs.raf.pds.v5.z2.gRPC.BuyOfferOrBuilder getBuyOffersOrBuilder(
       int index);
+
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  java.util.List<rs.raf.pds.v5.z2.gRPC.AllShares> 
+      getSharesList();
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  rs.raf.pds.v5.z2.gRPC.AllShares getShares(int index);
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  int getSharesCount();
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  java.util.List<? extends rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder> 
+      getSharesOrBuilderList();
+  /**
+   * <code>repeated .rs.raf.pds.v5.z2.gRPC.AllShares shares = 4;</code>
+   */
+  rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder getSharesOrBuilder(
+      int index);
 }

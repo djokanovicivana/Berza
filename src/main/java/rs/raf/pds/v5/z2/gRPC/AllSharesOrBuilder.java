@@ -3,8 +3,8 @@
 
 package rs.raf.pds.v5.z2.gRPC;
 
-public interface BuyOfferOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:rs.raf.pds.v5.z2.gRPC.BuyOffer)
+public interface AllSharesOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:rs.raf.pds.v5.z2.gRPC.AllShares)
     com.google.protobuf.MessageOrBuilder {
 
   /**

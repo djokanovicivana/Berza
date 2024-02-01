@@ -42,18 +42,24 @@ message Client {
   string clientId = 1;
   repeated SaleOffer saleOffers = 2;
   repeated BuyOffer buyOffers = 3;
+  repeated AllShares shares=4;
+}
+message AllShares {
+  string symbol = 1;
+  int32 totalShares = 2;
+  double price = 3;
 }
 
 message SaleOffer {
   string symbol = 1;
   int32 totalShares=2;
-  int32 price=3;
+  double price=3;
 }
 
 message BuyOffer {
   string symbol = 1;
   int32 totalShares=2;
-  int32 price=3;
+  double price=3;
 }
 
 message RegisterResponse {
@@ -89,11 +95,13 @@ message SellOrderRequest{
   string symbol=1;
   double price=2;
   int32 numberOfShares=3;
+  string clientId=4;
 }
 message BuyOrderRequest{
   string symbol=1;
   double price=2;
   int32 numberOfShares=3;
+  string clientId=4;
 }
 message SellOrderResponse{
   bool success=1;

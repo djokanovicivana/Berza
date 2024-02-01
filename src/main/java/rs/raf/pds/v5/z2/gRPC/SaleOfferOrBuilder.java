@@ -23,7 +23,7 @@ public interface SaleOfferOrBuilder extends
   int getTotalShares();
 
   /**
-   * <code>int32 price = 3;</code>
+   * <code>double price = 3;</code>
    */
-  int getPrice();
+  double getPrice();
 }
