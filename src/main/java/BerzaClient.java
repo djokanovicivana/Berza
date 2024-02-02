@@ -93,7 +93,14 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
                 berzaClient.sellOrder(parts[2], parseInt(parts[3]), parseDouble(parts[4]), berzaClient);
             }
             else{
-                System.out.println("Invalid sell order format!");
+                System.out.println("Invalid order sell format!");
+            }
+        }else if(userInput.startsWith("order buy")){
+            String [] parts=userInput.split(" ", 5);
+            if(parts.length==5){
+                berzaClient.buyOrder(parts[2], parseInt(parts[3]), parseDouble(parts[4]), berzaClient);
+            }else{
+                System.out.println("Invalid order buy format!");
             }
         }
 
