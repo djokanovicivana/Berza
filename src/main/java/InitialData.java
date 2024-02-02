@@ -4,6 +4,7 @@ import rs.raf.pds.v5.z2.gRPC.Company;
 import java.time.Instant;
 
 public class InitialData {
+
     static Object[][] companyData =
             {{"AAPL", "Apple", 181.18, -0.73, Timestamp.newBuilder()
                     .setSeconds(Instant.now().getEpochSecond())

@@ -97,7 +97,7 @@ public class BerzaServer {
                 String clientId = entry.getKey();
                 Client client = entry.getValue();
                 for (SaleOffer stock : client.getSaleOffersList()) {
-                    if (stock.getSymbol().equals(symbol)) {
+                    if (stock.getSymbol().equals(symbol) && numberOfOffers<=stock.getTotalShares()) {
                         AskOffer askOffer = AskOffer.newBuilder()
                                 .setSymbol(stock.getSymbol())
                                 .setPrice(stock.getPrice())
@@ -182,11 +182,12 @@ public class BerzaServer {
                                 .setTotalShares(requestedShares)
                                 .build();
 
-
-                         client.toBuilder()
+                        Client updatedClient=client.toBuilder()
                                 .addSaleOffers(saleOffer)
                                 .setShares(shareIndex, client.getShares(shareIndex).toBuilder().setTotalShares(newSharesNumber).build())
                                 .build();
+                        registeredClients.put(clientId,updatedClient);
+
 
 
                         responseObserver.onNext(SellOrderResponse.newBuilder().setSuccess(true).setMessage("Sell order processed successfully").build());
@@ -262,9 +263,11 @@ public class BerzaServer {
 
             if (buyerSharesIndex != -1) {
                 int buyerNewSharesNumber = buyerClient.getShares(buyerSharesIndex).getTotalShares() + numberOfShares;
-                buyerClient.toBuilder()
+                Client updatedBuyerClient= buyerClient.toBuilder()
                         .setShares(buyerSharesIndex, buyerClient.getShares(buyerSharesIndex).toBuilder().setTotalShares(buyerNewSharesNumber).build())
                         .build();
+                registeredClients.put(buyerClientId, updatedBuyerClient);
+
             } else {
                 // Kupac nema prethodno kupljenih akcija te kompanije, dodaj novu
                 AllShares buyerNewShares = AllShares.newBuilder()
@@ -272,7 +275,8 @@ public class BerzaServer {
                         .setTotalShares(numberOfShares)
                         .setPrice(saleOffer.getPrice())
                         .build();
-                buyerClient.toBuilder().addShares(buyerNewShares).build();
+                Client updatedBuyerClient=buyerClient.toBuilder().addShares(buyerNewShares).build();
+                registeredClients.put(buyerClientId, updatedBuyerClient);
             }
 
             // Ažuriraj broj akcija kod prodavca
@@ -286,9 +290,10 @@ public class BerzaServer {
 
             if (sellerSharesIndex != -1) {
                 int sellerNewSharesNumber = sellerClient.getShares(sellerSharesIndex).getTotalShares() - numberOfShares;
-                sellerClient.toBuilder()
+                Client updatedSellerClient=sellerClient.toBuilder()
                         .setShares(sellerSharesIndex, sellerClient.getShares(sellerSharesIndex).toBuilder().setTotalShares(sellerNewSharesNumber).build())
                         .build();
+                registeredClients.put(sellerClientId, updatedSellerClient);
             }
         }
 
@@ -309,7 +314,8 @@ public class BerzaServer {
                         .setTotalShares(numberOfSharesToBuy)
                         .build();
 
-                buyerClient.toBuilder().addBuyOffers(newBuyOffer).build();
+               Client updatedBuyerClient=buyerClient.toBuilder().addBuyOffers(newBuyOffer).build();
+               registeredClients.put(buyerClientId, updatedBuyerClient);
 
                 // Smanji odgovarajući broj akcija iz liste AllShares
                 int sharesIndexToRemove = -1;
@@ -327,11 +333,13 @@ public class BerzaServer {
 
 
                     if (newSharesNumber == 0) {
-                        buyerClient.toBuilder().removeShares(sharesIndexToRemove).build();
+                        updatedBuyerClient= buyerClient.toBuilder().removeShares(sharesIndexToRemove).build();
+                        registeredClients.put(buyerClientId,updatedBuyerClient);
                     } else {
-                        buyerClient.toBuilder()
+                        updatedBuyerClient= buyerClient.toBuilder()
                                 .setShares(sharesIndexToRemove, buyerClient.getShares(sharesIndexToRemove).toBuilder().setTotalShares(newSharesNumber).build())
                                 .build();
+                       registeredClients.put(buyerClientId, updatedBuyerClient);
                     }
                 } else {
                     // Logika ako simbol nije pronađen u listi AllShares (možda dodati dodatne provere ili obavestenje)

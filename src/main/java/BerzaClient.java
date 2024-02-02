@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -46,23 +47,45 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
     private static Client generateClientInfo() {
         // Generate a unique client ID
         String clientId = UUID.randomUUID().toString();
+        String[] companySymbols = {
+                "AAPL", "MSFT", "GOOGL", "IBM", "AMZN", "NVDA", "META", "TSLA"
+        };
+
+        Random random = new Random();
+
+        // Dobijanje nasumičnog indeksa iz niza
+        int randomIndex = random.nextInt(companySymbols.length);
+        int randomIndex2 = random.nextInt(companySymbols.length);
+        int randomIndex3 = random.nextInt(companySymbols.length);
 
 
+        // Dobijanje nasumične vrednosti iz niza na osnovu generisanog indeksa
+        String randomSymbol = companySymbols[randomIndex];
+        String randomSymbol2 = companySymbols[randomIndex2];
+        String randomSymbol3 = companySymbols[randomIndex3];
         // Create stock information for the client
-        SaleOffer stock1 = SaleOffer.newBuilder()
+        AllShares stock1 = AllShares.newBuilder()
                 .setSymbol("AAPL")
-                .setTotalShares(10)
+                .setTotalShares(150)
+                .setPrice(200.0)
                 .build();
-        SaleOffer stock2 = SaleOffer.newBuilder()
+        AllShares stock2 = AllShares.newBuilder()
+                .setSymbol("GOOGL")
+                .setTotalShares(500)
+                .setPrice(100.0)
+                .build();
+        AllShares stock3 = AllShares.newBuilder()
                 .setSymbol("MSFT")
-                .setTotalShares(10)
+                .setTotalShares(300)
+                .setPrice(77.5)
                 .build();
 
 
         Client clientInfo = Client.newBuilder()
                 .setClientId(clientId)
-                .addSaleOffers(stock1)
-                .addSaleOffers(stock2)
+                .addShares(stock1)
+                .addShares(stock2)
+                .addShares(stock3)
                 // Add more stocks as needed
                 .build();
 
@@ -122,6 +145,9 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
         AskRequest askRequest=AskRequest.newBuilder().setSymbol(symbol).setNumberOfOffers(numberOfOffers).build();
 
         AskResponse askResponse=client.blockingStub.ask(askRequest);
+        if(askResponse.getOffersCount()==0){
+            System.out.println("No matching offers found!");
+        }
 
         for(AskOffer offer: askResponse.getOffersList()){
             System.out.println("Client: "+  offer.getClientId()+
@@ -134,6 +160,10 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
      BidRequest bidRequest=BidRequest.newBuilder().setSymbol(symbol).setNumberOfOffers(numberOfOffers).build();
 
      BidResponse bidResponse=client.blockingStub.bid(bidRequest);
+
+     if(bidResponse.getOffersCount()==0){
+         System.out.println("No matching offers found!");
+     }
 
      for(BidOffer offer: bidResponse.getOffersList()){
          System.out.println("Client: "+  offer.getClientId()+
