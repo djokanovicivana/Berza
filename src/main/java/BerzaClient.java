@@ -149,6 +149,21 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
             System.out.println("Error during sellOrder: " + e.getStatus());
         }
     }
+    private static void buyOrder(String symbol, int numberOfShares, double price, BerzaClient client) {
+        try {
+            BuyOrderRequest buyOrderRequest = BuyOrderRequest.newBuilder()
+                    .setSymbol(symbol)
+                    .setClientId(client.clientInfo.getClientId())
+                    .setPrice(price)
+                    .setNumberOfShares(numberOfShares)
+                    .build();
+            BuyOrderResponse buyOrderResponse = client.blockingStub.buyOrder(buyOrderRequest);
+            System.out.print(buyOrderResponse.getMessage());
+        } catch (StatusRuntimeException e) {
+            System.out.println("Error during buyOrder: " + e.getStatus());
+        }
+    }
+
 
     public static void main(String[] args) throws UnknownHostException, IOException {
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8090)
