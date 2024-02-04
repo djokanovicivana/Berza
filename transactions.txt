@@ -1,0 +1,1 @@
+Symbol: GOOGL, Price: 100.000000, Shares: 300, Buyer: 8f6fa323-942e-4876-83c8-1abefce99cfb, Seller: ceaa7ed6-b0e4-46cd-b6b8-4e4ebe82810b

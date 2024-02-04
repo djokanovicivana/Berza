@@ -3,10 +3,7 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import rs.raf.pds.v5.z2.gRPC.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -280,7 +277,7 @@ public class BerzaServer {
                                                 .setBuyerClientId(clientId)
                                                         .setSellerClientId(sellerId)
                                                                 .build();
-                writeToFile()
+                writeToFile(transaction);
 
                 // Ako je transakcija uspesna, odgovori sa BuyOrderResponse
                 responseObserver.onNext(BuyOrderResponse.newBuilder().setSuccess(true).setMessage("You transaction was successfull!").build());
@@ -351,6 +348,24 @@ public class BerzaServer {
                 }
             } else {
                 System.out.print("Greska, ne postoji klijent ili simbol");
+            }
+        }
+        public static void writeToFile(Transaction transaction) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.txt", true))) {
+                // Formatiranje transakcije i upisivanje u fajl
+                String formattedTransaction = String.format(
+                        "Symbol: %s, Price: %f, Shares: %d, Buyer: %s, Seller: %s%n",
+                        transaction.getSymbol(),
+                        transaction.getPrice(),
+                        transaction.getNumberOfShares(),
+                        transaction.getBuyerClientId(),
+                        transaction.getSellerClientId()
+                );
+
+                writer.write(formattedTransaction);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Dodajte odgovarajući tretman grešaka prema vašem zahtevu
             }
         }
 
