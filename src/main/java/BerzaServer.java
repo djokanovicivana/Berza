@@ -292,52 +292,58 @@ public class BerzaServer {
         // Metoda za izvrsenje transakcije
         private void executeTransaction(String buyerClientId, String sellerClientId, SaleOffer saleOffer, int numberOfShares) {
             Client buyerClient = registeredClients.get(buyerClientId);
-            Client sellerClient=registeredClients.get(sellerClientId);
-            // Ažuriraj broj akcija kod kupca
-            int buyerSharesIndex = -1;
-            for (int i = 0; i < buyerClient.getSharesCount(); i++) {
-                if (buyerClient.getShares(i).getSymbol().equals(saleOffer.getSymbol())) {
-                    buyerSharesIndex = i;
-                    break;
+            Client sellerClient = registeredClients.get(sellerClientId);
+
+            if (buyerClient != null && sellerClient != null) {
+                // Ažuriraj broj akcija kod kupca
+                int buyerSharesIndex = -1;
+                for (int i = 0; i < buyerClient.getSharesCount(); i++) {
+                    if (buyerClient.getShares(i).getSymbol().equals(saleOffer.getSymbol())) {
+                        buyerSharesIndex = i;
+                        break;
+                    }
                 }
-            }
 
-            if (buyerSharesIndex != -1) {
-                int buyerNewSharesNumber = buyerClient.getShares(buyerSharesIndex).getTotalShares() + numberOfShares;
-                buyerClient= buyerClient.toBuilder()
-                        .setShares(buyerSharesIndex, buyerClient.getShares(buyerSharesIndex).toBuilder().setTotalShares(buyerNewSharesNumber).build())
-                        .build();
-                registeredClients.put(buyerClientId, buyerClient);
+                if (buyerSharesIndex != -1) {
+                    int buyerNewSharesNumber = buyerClient.getShares(buyerSharesIndex).getTotalShares() + numberOfShares;
+                    buyerClient = buyerClient.toBuilder()
+                            .setShares(buyerSharesIndex, buyerClient.getShares(buyerSharesIndex).toBuilder().setTotalShares(buyerNewSharesNumber).build())
+                            .build();
+                    registeredClients.put(buyerClientId, buyerClient);
 
+                } else {
+                    // Kupac nema prethodno kupljenih akcija te kompanije, dodaj novu
+                    AllShares buyerNewShares = AllShares.newBuilder()
+                            .setSymbol(saleOffer.getSymbol())
+                            .setTotalShares(numberOfShares)
+                            .setPrice(saleOffer.getPrice())
+                            .build();
+                    buyerClient = buyerClient.toBuilder().addShares(buyerNewShares).build();
+                    registeredClients.put(buyerClientId, buyerClient);
+                }
+
+                // Ažuriraj broj akcija kod prodavca
+                int sellerSharesIndex = -1;
+                for (int i = 0; i < sellerClient.getSharesCount(); i++) {
+                    if (sellerClient.getSaleOffers(i).getSymbol().equals(saleOffer.getSymbol())) {
+                        sellerSharesIndex = i;
+                        break;
+                    }
+                }
+
+                if (sellerSharesIndex != -1) {
+                    int sellerNewSharesNumber = sellerClient.getSaleOffers(sellerSharesIndex).getTotalShares() - numberOfShares;
+                    sellerClient = sellerClient.toBuilder()
+                            .setSaleOffers(sellerSharesIndex, sellerClient.getSaleOffers(sellerSharesIndex).toBuilder()
+                                    .setTotalShares(sellerNewSharesNumber).build())
+                            .build();
+                    registeredClients.put(sellerClientId, sellerClient);
+                }
             } else {
-                // Kupac nema prethodno kupljenih akcija te kompanije, dodaj novu
-                AllShares buyerNewShares = AllShares.newBuilder()
-                        .setSymbol(saleOffer.getSymbol())
-                        .setTotalShares(numberOfShares)
-                        .setPrice(saleOffer.getPrice())
-                        .build();
-                buyerClient=buyerClient.toBuilder().addShares(buyerNewShares).build();
-                registeredClients.put(buyerClientId, buyerClient);
-            }
-
-            // Ažuriraj broj akcija kod prodavca
-            int sellerSharesIndex = -1;
-            for (int i = 0; i < sellerClient.getSharesCount(); i++) {
-                if (sellerClient.getShares(i).getSymbol().equals(saleOffer.getSymbol())) {
-                    sellerSharesIndex = i;
-                    break;
-                }
-            }
-
-            if (sellerSharesIndex != -1) {
-                int sellerNewSharesNumber = sellerClient.getShares(sellerSharesIndex).getTotalShares() - numberOfShares;
-                sellerClient=sellerClient.toBuilder()
-                        .setSaleOffers(sellerSharesIndex, sellerClient.getSaleOffers(sellerSharesIndex).toBuilder()
-                                .setTotalShares(sellerNewSharesNumber).build())
-                        .build();
-                registeredClients.put(sellerClientId, sellerClient);
+                System.out.print("Greska, ne postoji klijent ili simbol");
             }
         }
+
 
 
         // Metoda za dodavanje naloga za kupovinu u listu aktivnih naloga
