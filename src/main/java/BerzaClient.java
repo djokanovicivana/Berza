@@ -162,7 +162,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
      BidResponse bidResponse=client.blockingStub.bid(bidRequest);
 
      if(bidResponse.getOffersCount()==0){
-         System.out.println("No matching offers found!");
+         System.out.println();
      }
 
      for(BidOffer offer: bidResponse.getOffersList()){
