@@ -111,4 +111,11 @@ message BuyOrderResponse{
   bool success=1;
   string message=2;
 }
+message Transaction {
+  string buyerClientId = 1;
+  string sellerClientId = 2;
+  string symbol = 3;
+  int32 numberOfShares = 4;
+  double price = 5;
+}
 

@@ -104,6 +104,11 @@ public final class BerzaServiceOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_rs_raf_pds_v5_z2_gRPC_Transaction_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_rs_raf_pds_v5_z2_gRPC_Transaction_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -149,22 +154,25 @@ public final class BerzaServiceOuterClass {
       "mberOfShares\030\003 \001(\005\022\020\n\010clientId\030\004 \001(\t\"5\n\021" +
       "SellOrderResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007me" +
       "ssage\030\002 \001(\t\"4\n\020BuyOrderResponse\022\017\n\007succe" +
-      "ss\030\001 \001(\010\022\017\n\007message\030\002 \001(\t2\254\004\n\014BerzaServi" +
-      "ce\022_\n\020GetCompaniesData\022%.rs.raf.pds.v5.z" +
-      "2.gRPC.CompanyRequest\032\".rs.raf.pds.v5.z2" +
-      ".gRPC.CompanyList\"\000\022Z\n\016RegisterClient\022\035." +
-      "rs.raf.pds.v5.z2.gRPC.Client\032\'.rs.raf.pd" +
-      "s.v5.z2.gRPC.RegisterResponse\"\000\022N\n\003Ask\022!" +
-      ".rs.raf.pds.v5.z2.gRPC.AskRequest\032\".rs.r" +
-      "af.pds.v5.z2.gRPC.AskResponse\"\000\022N\n\003Bid\022!" +
-      ".rs.raf.pds.v5.z2.gRPC.BidRequest\032\".rs.r" +
-      "af.pds.v5.z2.gRPC.BidResponse\"\000\022`\n\tSellO" +
-      "rder\022\'.rs.raf.pds.v5.z2.gRPC.SellOrderRe" +
-      "quest\032(.rs.raf.pds.v5.z2.gRPC.SellOrderR" +
-      "esponse\"\000\022]\n\010BuyOrder\022&.rs.raf.pds.v5.z2" +
-      ".gRPC.BuyOrderRequest\032\'.rs.raf.pds.v5.z2" +
-      ".gRPC.BuyOrderResponse\"\000B\031\n\025rs.raf.pds.v" +
-      "5.z2.gRPCP\001b\006proto3"
+      "ss\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"s\n\013Transaction" +
+      "\022\025\n\rbuyerClientId\030\001 \001(\t\022\026\n\016sellerClientI" +
+      "d\030\002 \001(\t\022\016\n\006symbol\030\003 \001(\t\022\026\n\016numberOfShare" +
+      "s\030\004 \001(\005\022\r\n\005price\030\005 \001(\0012\254\004\n\014BerzaService\022" +
+      "_\n\020GetCompaniesData\022%.rs.raf.pds.v5.z2.g" +
+      "RPC.CompanyRequest\032\".rs.raf.pds.v5.z2.gR" +
+      "PC.CompanyList\"\000\022Z\n\016RegisterClient\022\035.rs." +
+      "raf.pds.v5.z2.gRPC.Client\032\'.rs.raf.pds.v" +
+      "5.z2.gRPC.RegisterResponse\"\000\022N\n\003Ask\022!.rs" +
+      ".raf.pds.v5.z2.gRPC.AskRequest\032\".rs.raf." +
+      "pds.v5.z2.gRPC.AskResponse\"\000\022N\n\003Bid\022!.rs" +
+      ".raf.pds.v5.z2.gRPC.BidRequest\032\".rs.raf." +
+      "pds.v5.z2.gRPC.BidResponse\"\000\022`\n\tSellOrde" +
+      "r\022\'.rs.raf.pds.v5.z2.gRPC.SellOrderReque" +
+      "st\032(.rs.raf.pds.v5.z2.gRPC.SellOrderResp" +
+      "onse\"\000\022]\n\010BuyOrder\022&.rs.raf.pds.v5.z2.gR" +
+      "PC.BuyOrderRequest\032\'.rs.raf.pds.v5.z2.gR" +
+      "PC.BuyOrderResponse\"\000B\031\n\025rs.raf.pds.v5.z" +
+      "2.gRPCP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -287,6 +295,12 @@ public final class BerzaServiceOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_rs_raf_pds_v5_z2_gRPC_BuyOrderResponse_descriptor,
         new java.lang.String[] { "Success", "Message", });
+    internal_static_rs_raf_pds_v5_z2_gRPC_Transaction_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_rs_raf_pds_v5_z2_gRPC_Transaction_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_rs_raf_pds_v5_z2_gRPC_Transaction_descriptor,
+        new java.lang.String[] { "BuyerClientId", "SellerClientId", "Symbol", "NumberOfShares", "Price", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

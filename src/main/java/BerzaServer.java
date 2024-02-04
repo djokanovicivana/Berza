@@ -40,6 +40,8 @@ public class BerzaServer {
     static class BerzaServiceImpl extends BerzaServiceGrpc.BerzaServiceImplBase {
         private final Map<String, Client> registeredClients = new ConcurrentHashMap<>();
         private final Map<String, Socket> connections = new ConcurrentHashMap<>();
+        private final List<Transaction> transactionList = new ArrayList<>();
+
         private void startSocketServer() {
             try (ServerSocket serverSocket = new ServerSocket(8888)) {
                 System.out.println("Socket server started on port 8888");
@@ -271,6 +273,14 @@ public class BerzaServer {
             if (matchingSaleOffer != null && sellerId!=null) {
                 // Izvrsi transakciju
                 executeTransaction(clientId,sellerId, matchingSaleOffer, numberOfShares);
+                Transaction transaction=Transaction.newBuilder()
+                        .setPrice(price)
+                                .setNumberOfShares(numberOfShares)
+                                        .setSymbol(symbol)
+                                                .setBuyerClientId(clientId)
+                                                        .setSellerClientId(sellerId)
+                                                                .build();
+                writeToFile()
 
                 // Ako je transakcija uspesna, odgovori sa BuyOrderResponse
                 responseObserver.onNext(BuyOrderResponse.newBuilder().setSuccess(true).setMessage("You transaction was successfull!").build());
