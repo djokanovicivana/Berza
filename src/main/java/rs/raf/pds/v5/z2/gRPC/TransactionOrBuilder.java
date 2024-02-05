@@ -46,4 +46,17 @@ public interface TransactionOrBuilder extends
    * <code>double price = 5;</code>
    */
   double getPrice();
+
+  /**
+   * <code>.google.protobuf.Timestamp timestamp = 6;</code>
+   */
+  boolean hasTimestamp();
+  /**
+   * <code>.google.protobuf.Timestamp timestamp = 6;</code>
+   */
+  com.google.protobuf.Timestamp getTimestamp();
+  /**
+   * <code>.google.protobuf.Timestamp timestamp = 6;</code>
+   */
+  com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder();
 }

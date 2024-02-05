@@ -24,6 +24,7 @@ private static final long serialVersionUID = 0L;
     saleOffers_ = java.util.Collections.emptyList();
     buyOffers_ = java.util.Collections.emptyList();
     shares_ = java.util.Collections.emptyList();
+    symbols_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
   @java.lang.Override
@@ -83,6 +84,15 @@ private static final long serialVersionUID = 0L;
                 input.readMessage(rs.raf.pds.v5.z2.gRPC.AllShares.parser(), extensionRegistry));
             break;
           }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+            if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              symbols_ = new com.google.protobuf.LazyStringArrayList();
+              mutable_bitField0_ |= 0x00000010;
+            }
+            symbols_.add(s);
+            break;
+          }
           default: {
             if (!parseUnknownFieldProto3(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -106,6 +116,9 @@ private static final long serialVersionUID = 0L;
       }
       if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
         shares_ = java.util.Collections.unmodifiableList(shares_);
+      }
+      if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        symbols_ = symbols_.getUnmodifiableView();
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -264,6 +277,35 @@ private static final long serialVersionUID = 0L;
     return shares_.get(index);
   }
 
+  public static final int SYMBOLS_FIELD_NUMBER = 5;
+  private com.google.protobuf.LazyStringList symbols_;
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  public com.google.protobuf.ProtocolStringList
+      getSymbolsList() {
+    return symbols_;
+  }
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  public int getSymbolsCount() {
+    return symbols_.size();
+  }
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  public java.lang.String getSymbols(int index) {
+    return symbols_.get(index);
+  }
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSymbolsBytes(int index) {
+    return symbols_.getByteString(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -290,6 +332,9 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < shares_.size(); i++) {
       output.writeMessage(4, shares_.get(i));
     }
+    for (int i = 0; i < symbols_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, symbols_.getRaw(i));
+    }
     unknownFields.writeTo(output);
   }
 
@@ -313,6 +358,14 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < shares_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(4, shares_.get(i));
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < symbols_.size(); i++) {
+        dataSize += computeStringSizeNoTag(symbols_.getRaw(i));
+      }
+      size += dataSize;
+      size += 1 * getSymbolsList().size();
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -338,6 +391,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getBuyOffersList());
     result = result && getSharesList()
         .equals(other.getSharesList());
+    result = result && getSymbolsList()
+        .equals(other.getSymbolsList());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -362,6 +417,10 @@ private static final long serialVersionUID = 0L;
     if (getSharesCount() > 0) {
       hash = (37 * hash) + SHARES_FIELD_NUMBER;
       hash = (53 * hash) + getSharesList().hashCode();
+    }
+    if (getSymbolsCount() > 0) {
+      hash = (37 * hash) + SYMBOLS_FIELD_NUMBER;
+      hash = (53 * hash) + getSymbolsList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -523,6 +582,8 @@ private static final long serialVersionUID = 0L;
       } else {
         sharesBuilder_.clear();
       }
+      symbols_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000010);
       return this;
     }
 
@@ -579,6 +640,11 @@ private static final long serialVersionUID = 0L;
       } else {
         result.shares_ = sharesBuilder_.build();
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        symbols_ = symbols_.getUnmodifiableView();
+        bitField0_ = (bitField0_ & ~0x00000010);
+      }
+      result.symbols_ = symbols_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -709,6 +775,16 @@ private static final long serialVersionUID = 0L;
             sharesBuilder_.addAllMessages(other.shares_);
           }
         }
+      }
+      if (!other.symbols_.isEmpty()) {
+        if (symbols_.isEmpty()) {
+          symbols_ = other.symbols_;
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          ensureSymbolsIsMutable();
+          symbols_.addAll(other.symbols_);
+        }
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1527,6 +1603,100 @@ private static final long serialVersionUID = 0L;
         shares_ = null;
       }
       return sharesBuilder_;
+    }
+
+    private com.google.protobuf.LazyStringList symbols_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    private void ensureSymbolsIsMutable() {
+      if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        symbols_ = new com.google.protobuf.LazyStringArrayList(symbols_);
+        bitField0_ |= 0x00000010;
+       }
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getSymbolsList() {
+      return symbols_.getUnmodifiableView();
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public int getSymbolsCount() {
+      return symbols_.size();
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public java.lang.String getSymbols(int index) {
+      return symbols_.get(index);
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSymbolsBytes(int index) {
+      return symbols_.getByteString(index);
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public Builder setSymbols(
+        int index, java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureSymbolsIsMutable();
+      symbols_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public Builder addSymbols(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureSymbolsIsMutable();
+      symbols_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public Builder addAllSymbols(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureSymbolsIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, symbols_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public Builder clearSymbols() {
+      symbols_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000010);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string symbols = 5;</code>
+     */
+    public Builder addSymbolsBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      ensureSymbolsIsMutable();
+      symbols_.add(value);
+      onChanged();
+      return this;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

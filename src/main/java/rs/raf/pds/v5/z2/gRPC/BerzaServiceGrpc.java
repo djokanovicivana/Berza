@@ -219,6 +219,70 @@ public final class BerzaServiceGrpc {
      return getBuyOrderMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<rs.raf.pds.v5.z2.gRPC.TransactionsRequest,
+      rs.raf.pds.v5.z2.gRPC.TransactionsResponse> getTransactionsListMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TransactionsList",
+      requestType = rs.raf.pds.v5.z2.gRPC.TransactionsRequest.class,
+      responseType = rs.raf.pds.v5.z2.gRPC.TransactionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<rs.raf.pds.v5.z2.gRPC.TransactionsRequest,
+      rs.raf.pds.v5.z2.gRPC.TransactionsResponse> getTransactionsListMethod() {
+    io.grpc.MethodDescriptor<rs.raf.pds.v5.z2.gRPC.TransactionsRequest, rs.raf.pds.v5.z2.gRPC.TransactionsResponse> getTransactionsListMethod;
+    if ((getTransactionsListMethod = BerzaServiceGrpc.getTransactionsListMethod) == null) {
+      synchronized (BerzaServiceGrpc.class) {
+        if ((getTransactionsListMethod = BerzaServiceGrpc.getTransactionsListMethod) == null) {
+          BerzaServiceGrpc.getTransactionsListMethod = getTransactionsListMethod = 
+              io.grpc.MethodDescriptor.<rs.raf.pds.v5.z2.gRPC.TransactionsRequest, rs.raf.pds.v5.z2.gRPC.TransactionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "rs.raf.pds.v5.z2.gRPC.BerzaService", "TransactionsList"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  rs.raf.pds.v5.z2.gRPC.TransactionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  rs.raf.pds.v5.z2.gRPC.TransactionsResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new BerzaServiceMethodDescriptorSupplier("TransactionsList"))
+                  .build();
+          }
+        }
+     }
+     return getTransactionsListMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<rs.raf.pds.v5.z2.gRPC.SubscribeRequest,
+      rs.raf.pds.v5.z2.gRPC.SubscribeResponse> getPriceUpdatesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "PriceUpdates",
+      requestType = rs.raf.pds.v5.z2.gRPC.SubscribeRequest.class,
+      responseType = rs.raf.pds.v5.z2.gRPC.SubscribeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<rs.raf.pds.v5.z2.gRPC.SubscribeRequest,
+      rs.raf.pds.v5.z2.gRPC.SubscribeResponse> getPriceUpdatesMethod() {
+    io.grpc.MethodDescriptor<rs.raf.pds.v5.z2.gRPC.SubscribeRequest, rs.raf.pds.v5.z2.gRPC.SubscribeResponse> getPriceUpdatesMethod;
+    if ((getPriceUpdatesMethod = BerzaServiceGrpc.getPriceUpdatesMethod) == null) {
+      synchronized (BerzaServiceGrpc.class) {
+        if ((getPriceUpdatesMethod = BerzaServiceGrpc.getPriceUpdatesMethod) == null) {
+          BerzaServiceGrpc.getPriceUpdatesMethod = getPriceUpdatesMethod = 
+              io.grpc.MethodDescriptor.<rs.raf.pds.v5.z2.gRPC.SubscribeRequest, rs.raf.pds.v5.z2.gRPC.SubscribeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "rs.raf.pds.v5.z2.gRPC.BerzaService", "PriceUpdates"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  rs.raf.pds.v5.z2.gRPC.SubscribeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  rs.raf.pds.v5.z2.gRPC.SubscribeResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new BerzaServiceMethodDescriptorSupplier("PriceUpdates"))
+                  .build();
+          }
+        }
+     }
+     return getPriceUpdatesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -288,6 +352,20 @@ public final class BerzaServiceGrpc {
       asyncUnimplementedUnaryCall(getBuyOrderMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void transactionsList(rs.raf.pds.v5.z2.gRPC.TransactionsRequest request,
+        io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.TransactionsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getTransactionsListMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void priceUpdates(rs.raf.pds.v5.z2.gRPC.SubscribeRequest request,
+        io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.SubscribeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getPriceUpdatesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -332,6 +410,20 @@ public final class BerzaServiceGrpc {
                 rs.raf.pds.v5.z2.gRPC.BuyOrderRequest,
                 rs.raf.pds.v5.z2.gRPC.BuyOrderResponse>(
                   this, METHODID_BUY_ORDER)))
+          .addMethod(
+            getTransactionsListMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                rs.raf.pds.v5.z2.gRPC.TransactionsRequest,
+                rs.raf.pds.v5.z2.gRPC.TransactionsResponse>(
+                  this, METHODID_TRANSACTIONS_LIST)))
+          .addMethod(
+            getPriceUpdatesMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                rs.raf.pds.v5.z2.gRPC.SubscribeRequest,
+                rs.raf.pds.v5.z2.gRPC.SubscribeResponse>(
+                  this, METHODID_PRICE_UPDATES)))
           .build();
     }
   }
@@ -401,6 +493,22 @@ public final class BerzaServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getBuyOrderMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void transactionsList(rs.raf.pds.v5.z2.gRPC.TransactionsRequest request,
+        io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.TransactionsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getTransactionsListMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void priceUpdates(rs.raf.pds.v5.z2.gRPC.SubscribeRequest request,
+        io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.SubscribeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getPriceUpdatesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -461,6 +569,20 @@ public final class BerzaServiceGrpc {
     public rs.raf.pds.v5.z2.gRPC.BuyOrderResponse buyOrder(rs.raf.pds.v5.z2.gRPC.BuyOrderRequest request) {
       return blockingUnaryCall(
           getChannel(), getBuyOrderMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public rs.raf.pds.v5.z2.gRPC.TransactionsResponse transactionsList(rs.raf.pds.v5.z2.gRPC.TransactionsRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getTransactionsListMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public rs.raf.pds.v5.z2.gRPC.SubscribeResponse priceUpdates(rs.raf.pds.v5.z2.gRPC.SubscribeRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getPriceUpdatesMethod(), getCallOptions(), request);
     }
   }
 
@@ -529,6 +651,22 @@ public final class BerzaServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getBuyOrderMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<rs.raf.pds.v5.z2.gRPC.TransactionsResponse> transactionsList(
+        rs.raf.pds.v5.z2.gRPC.TransactionsRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getTransactionsListMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<rs.raf.pds.v5.z2.gRPC.SubscribeResponse> priceUpdates(
+        rs.raf.pds.v5.z2.gRPC.SubscribeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getPriceUpdatesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_COMPANIES_DATA = 0;
@@ -537,6 +675,8 @@ public final class BerzaServiceGrpc {
   private static final int METHODID_BID = 3;
   private static final int METHODID_SELL_ORDER = 4;
   private static final int METHODID_BUY_ORDER = 5;
+  private static final int METHODID_TRANSACTIONS_LIST = 6;
+  private static final int METHODID_PRICE_UPDATES = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -578,6 +718,14 @@ public final class BerzaServiceGrpc {
         case METHODID_BUY_ORDER:
           serviceImpl.buyOrder((rs.raf.pds.v5.z2.gRPC.BuyOrderRequest) request,
               (io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.BuyOrderResponse>) responseObserver);
+          break;
+        case METHODID_TRANSACTIONS_LIST:
+          serviceImpl.transactionsList((rs.raf.pds.v5.z2.gRPC.TransactionsRequest) request,
+              (io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.TransactionsResponse>) responseObserver);
+          break;
+        case METHODID_PRICE_UPDATES:
+          serviceImpl.priceUpdates((rs.raf.pds.v5.z2.gRPC.SubscribeRequest) request,
+              (io.grpc.stub.StreamObserver<rs.raf.pds.v5.z2.gRPC.SubscribeResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -646,6 +794,8 @@ public final class BerzaServiceGrpc {
               .addMethod(getBidMethod())
               .addMethod(getSellOrderMethod())
               .addMethod(getBuyOrderMethod())
+              .addMethod(getTransactionsListMethod())
+              .addMethod(getPriceUpdatesMethod())
               .build();
         }
       }

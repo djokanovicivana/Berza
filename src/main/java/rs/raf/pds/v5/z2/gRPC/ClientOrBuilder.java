@@ -88,4 +88,23 @@ public interface ClientOrBuilder extends
    */
   rs.raf.pds.v5.z2.gRPC.AllSharesOrBuilder getSharesOrBuilder(
       int index);
+
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  java.util.List<java.lang.String>
+      getSymbolsList();
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  int getSymbolsCount();
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  java.lang.String getSymbols(int index);
+  /**
+   * <code>repeated string symbols = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getSymbolsBytes(int index);
 }

@@ -1,3 +1,4 @@
+import com.google.protobuf.Timestamp;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
@@ -9,13 +10,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+
 
 public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
 
@@ -126,6 +129,28 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
                 System.out.println("Invalid order buy format!");
             }
         }
+        else if(userInput.startsWith("transactions")){
+            String[] parts = userInput.split(" ", 3);
+            if(parts.length == 3){
+                try {
+                    LocalDate date = LocalDate.parse(parts[2]);
+                   // berzaClient.listTransactions(parts[1], date);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format. Please use 'yyyy-MM-dd'.");
+                }
+            } else {
+                System.out.println("Invalid list transactions format!");
+            }
+        }else if(userInput.startsWith("subscribe")){
+            String [] parts= userInput.split(" ");
+            List<String> symbols=new ArrayList<>();
+            for(int i=1;i<=parts.length;i++){
+                symbols.add(parts[i]);
+            }
+            berzaClient.subscribeForPriceUpdates(symbols, berzaClient);
+
+        }
+
 
     }
 
@@ -200,7 +225,48 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
             System.out.println("Error during buyOrder: " + e.getStatus());
         }
     }
+    /*public void listTransactions(String symbol, LocalDate date) {
+        try {
+            TransactionsRequest request = TransactionsRequest.newBuilder()
+                    .setSymbol(symbol)
+                    .setTimestamp(Timestamp.newBuilder().setSeconds(date.toEpochSecond(ZoneOffset.UTC)).build())
+                    .build();
 
+            TransactionsResponse response = blockingStub.transactionsList(request);
+            if(response.getTransactionsList().isEmpty()){
+                System.out.println("No transactions found for that date!");
+            }else{
+
+            for (Transaction transaction : response.getTransactionsList()) {
+                System.out.println("Symbol: " + transaction.getSymbol());
+                System.out.println("Price: " + transaction.getPrice());
+                System.out.println("Number of Shares: " + transaction.getNumberOfShares());
+                System.out.println("Buyer Client ID: " + transaction.getBuyerClientId());
+                System.out.println("Seller Client ID: " + transaction.getSellerClientId());
+                System.out.println("---------------------");
+            }}
+        } catch (StatusRuntimeException e) {
+            System.out.println("Error during listTransactions: " + e.getStatus());
+        }
+    }
+
+
+*/
+    public void subscribeForPriceUpdates(List<String> symbols, BerzaClient client ) {
+        String clientId=client.clientInfo.getClientId();
+        SubscribeRequest subscribeRequest = SubscribeRequest.newBuilder()
+                .setClientId(clientId)
+                .addAllSymbols(symbols)
+                .build();
+
+        SubscribeResponse subscribeResponse = client.blockingStub.priceUpdates(subscribeRequest);
+
+        if (subscribeResponse.getSuccess()) {
+            System.out.println(subscribeResponse.getMessage());
+        } else {
+            System.out.println("Failed to subscribe: " + subscribeResponse.getMessage());
+        }
+    }
 
     public static void main(String[] args) throws UnknownHostException, IOException {
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8090)
