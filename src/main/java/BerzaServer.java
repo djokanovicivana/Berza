@@ -421,6 +421,29 @@ public class BerzaServer {
                 // Logika ako kupac nije pronađen (možda dodati dodatne provere ili obavestenje)
             }
         }
+        public void priceUpdates(SubscribeRequest request, StreamObserver<SubscribeResponse> responseObserver) {
+            String clientId = request.getClientId();
+            List<String> symbols = request.getSymbolsList();
+
+
+
+                for(Client client: registeredClients.values()){
+                    if(client.getClientId()==clientId){
+                        Client updatedClient=client.toBuilder().addAllSymbols(symbols).build();
+                        registeredClients.put(clientId, updatedClient)
+                    }
+
+                }
+
+
+            SubscribeResponse response = SubscribeResponse.newBuilder()
+                    .setSuccess(true)
+                    .setMessage("Subscription successful")
+                    .build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
 
 
 
