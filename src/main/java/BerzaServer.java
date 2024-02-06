@@ -38,8 +38,18 @@ public class BerzaServer {
         private final Map<String, Client> registeredClients = new ConcurrentHashMap<>();
         private final Map<String, Socket> connections = new ConcurrentHashMap<>();
         private final List<Transaction> transactionList = new ArrayList<>();
+        private final ConcurrentHashMap<String, Company> companies = new ConcurrentHashMap<String, Company>();
 
-        private void startSocketServer() {
+        protected BerzaServiceImpl(){
+            generateCompanyData();
+        }
+        protected void generateCompanyData() {
+            for (Company c : InitialData.initCompany()) {
+                companies.put(c.getSymbol(), c);
+            }
+
+        }
+            private void startSocketServer() {
             try (ServerSocket serverSocket = new ServerSocket(8888)) {
                 System.out.println("Socket server started on port 8888");
                 while (true) {
@@ -278,6 +288,7 @@ public class BerzaServer {
                                                         .setSellerClientId(sellerId)
                                                                 .build();
                 writeToFile(transaction);
+                updateCompanyPrice(symbol, price);
 
                 // Ako je transakcija uspesna, odgovori sa BuyOrderResponse
                 responseObserver.onNext(BuyOrderResponse.newBuilder().setSuccess(true).setMessage("You transaction was successfull!").build());
@@ -365,7 +376,7 @@ public class BerzaServer {
                 writer.write(formattedTransaction);
             } catch (IOException e) {
                 e.printStackTrace();
-                // Dodajte odgovarajući tretman grešaka prema vašem zahtevu
+
             }
         }
 
@@ -415,12 +426,23 @@ public class BerzaServer {
                        registeredClients.put(buyerClientId, buyerClient);
                     }
                 } else {
-                    // Logika ako simbol nije pronađen u listi AllShares (možda dodati dodatne provere ili obavestenje)
+
                 }
             } else {
-                // Logika ako kupac nije pronađen (možda dodati dodatne provere ili obavestenje)
+
             }
         }
+        public void updateCompanyPrice(String symbol, double newPrice) {
+            Company company = companies.get(symbol);
+            if (company != null) {
+                Company updatedCompany = company.toBuilder().setPrice(newPrice).build();
+                companies.put(symbol, updatedCompany);
+                System.out.println("Updated price for company " + symbol + " to " + newPrice);
+            } else {
+                System.out.println("Company with symbol " + symbol + " not found.");
+            }
+        }
+
         public void priceUpdates(SubscribeRequest request, StreamObserver<SubscribeResponse> responseObserver) {
             String clientId = request.getClientId();
             List<String> symbols = request.getSymbolsList();
@@ -428,9 +450,9 @@ public class BerzaServer {
 
 
                 for(Client client: registeredClients.values()){
-                    if(client.getClientId()==clientId){
+                    if(client.getClientId().equals(clientId)){
                         Client updatedClient=client.toBuilder().addAllSymbols(symbols).build();
-                        registeredClients.put(clientId, updatedClient)
+                        registeredClients.put(clientId, updatedClient);
                     }
 
                 }
