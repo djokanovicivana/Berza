@@ -175,38 +175,36 @@ public final class BerzaServiceOuterClass {
       "lientId\030\004 \001(\t\"5\n\021SellOrderResponse\022\017\n\007su" +
       "ccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"4\n\020BuyOrder" +
       "Response\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001" +
-      "(\t\"\242\001\n\013Transaction\022\025\n\rbuyerClientId\030\001 \001(" +
+      "(\t\"\206\001\n\013Transaction\022\025\n\rbuyerClientId\030\001 \001(" +
       "\t\022\026\n\016sellerClientId\030\002 \001(\t\022\016\n\006symbol\030\003 \001(" +
       "\t\022\026\n\016numberOfShares\030\004 \001(\005\022\r\n\005price\030\005 \001(\001" +
-      "\022-\n\ttimestamp\030\006 \001(\0132\032.google.protobuf.Ti" +
-      "mestamp\"T\n\023TransactionsRequest\022-\n\ttimest" +
-      "amp\030\001 \001(\0132\032.google.protobuf.Timestamp\022\016\n" +
-      "\006symbol\030\002 \001(\t\"P\n\024TransactionsResponse\0228\n" +
-      "\014transactions\030\001 \003(\0132\".rs.raf.pds.v5.z2.g" +
-      "RPC.Transaction\"5\n\020SubscribeRequest\022\020\n\010c" +
-      "lientId\030\001 \001(\t\022\017\n\007symbols\030\002 \003(\t\"5\n\021Subscr" +
-      "ibeResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030" +
-      "\002 \001(\t2\200\006\n\014BerzaService\022_\n\020GetCompaniesDa" +
-      "ta\022%.rs.raf.pds.v5.z2.gRPC.CompanyReques" +
-      "t\032\".rs.raf.pds.v5.z2.gRPC.CompanyList\"\000\022" +
-      "Z\n\016RegisterClient\022\035.rs.raf.pds.v5.z2.gRP" +
-      "C.Client\032\'.rs.raf.pds.v5.z2.gRPC.Registe" +
-      "rResponse\"\000\022N\n\003Ask\022!.rs.raf.pds.v5.z2.gR" +
-      "PC.AskRequest\032\".rs.raf.pds.v5.z2.gRPC.As" +
-      "kResponse\"\000\022N\n\003Bid\022!.rs.raf.pds.v5.z2.gR" +
-      "PC.BidRequest\032\".rs.raf.pds.v5.z2.gRPC.Bi" +
-      "dResponse\"\000\022`\n\tSellOrder\022\'.rs.raf.pds.v5" +
-      ".z2.gRPC.SellOrderRequest\032(.rs.raf.pds.v" +
-      "5.z2.gRPC.SellOrderResponse\"\000\022]\n\010BuyOrde" +
-      "r\022&.rs.raf.pds.v5.z2.gRPC.BuyOrderReques" +
-      "t\032\'.rs.raf.pds.v5.z2.gRPC.BuyOrderRespon" +
-      "se\"\000\022m\n\020TransactionsList\022*.rs.raf.pds.v5" +
-      ".z2.gRPC.TransactionsRequest\032+.rs.raf.pd" +
-      "s.v5.z2.gRPC.TransactionsResponse\"\000\022c\n\014P" +
-      "riceUpdates\022\'.rs.raf.pds.v5.z2.gRPC.Subs" +
-      "cribeRequest\032(.rs.raf.pds.v5.z2.gRPC.Sub" +
-      "scribeResponse\"\000B\031\n\025rs.raf.pds.v5.z2.gRP" +
-      "CP\001b\006proto3"
+      "\022\021\n\ttimestamp\030\006 \001(\t\"8\n\023TransactionsReque" +
+      "st\022\021\n\ttimestamp\030\001 \001(\t\022\016\n\006symbol\030\002 \001(\t\"P\n" +
+      "\024TransactionsResponse\0228\n\014transactions\030\001 " +
+      "\003(\0132\".rs.raf.pds.v5.z2.gRPC.Transaction\"" +
+      "5\n\020SubscribeRequest\022\020\n\010clientId\030\001 \001(\t\022\017\n" +
+      "\007symbols\030\002 \003(\t\"5\n\021SubscribeResponse\022\017\n\007s" +
+      "uccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t2\200\006\n\014BerzaS" +
+      "ervice\022_\n\020GetCompaniesData\022%.rs.raf.pds." +
+      "v5.z2.gRPC.CompanyRequest\032\".rs.raf.pds.v" +
+      "5.z2.gRPC.CompanyList\"\000\022Z\n\016RegisterClien" +
+      "t\022\035.rs.raf.pds.v5.z2.gRPC.Client\032\'.rs.ra" +
+      "f.pds.v5.z2.gRPC.RegisterResponse\"\000\022N\n\003A" +
+      "sk\022!.rs.raf.pds.v5.z2.gRPC.AskRequest\032\"." +
+      "rs.raf.pds.v5.z2.gRPC.AskResponse\"\000\022N\n\003B" +
+      "id\022!.rs.raf.pds.v5.z2.gRPC.BidRequest\032\"." +
+      "rs.raf.pds.v5.z2.gRPC.BidResponse\"\000\022`\n\tS" +
+      "ellOrder\022\'.rs.raf.pds.v5.z2.gRPC.SellOrd" +
+      "erRequest\032(.rs.raf.pds.v5.z2.gRPC.SellOr" +
+      "derResponse\"\000\022]\n\010BuyOrder\022&.rs.raf.pds.v" +
+      "5.z2.gRPC.BuyOrderRequest\032\'.rs.raf.pds.v" +
+      "5.z2.gRPC.BuyOrderResponse\"\000\022m\n\020Transact" +
+      "ionsList\022*.rs.raf.pds.v5.z2.gRPC.Transac" +
+      "tionsRequest\032+.rs.raf.pds.v5.z2.gRPC.Tra" +
+      "nsactionsResponse\"\000\022c\n\014PriceUpdates\022\'.rs" +
+      ".raf.pds.v5.z2.gRPC.SubscribeRequest\032(.r" +
+      "s.raf.pds.v5.z2.gRPC.SubscribeResponse\"\000" +
+      "B\031\n\025rs.raf.pds.v5.z2.gRPCP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

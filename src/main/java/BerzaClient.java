@@ -133,8 +133,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
             String[] parts = userInput.split(" ", 3);
             if(parts.length == 3){
                 try {
-                    LocalDate date = LocalDate.parse(parts[2]);
-                   // berzaClient.listTransactions(parts[1], date);
+                    berzaClient.listTransactions(parts[1], parts[2]);
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please use 'yyyy-MM-dd'.");
                 }
@@ -225,11 +224,11 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
             System.out.println("Error during buyOrder: " + e.getStatus());
         }
     }
-    /*public void listTransactions(String symbol, LocalDate date) {
+    public void listTransactions(String symbol, String date) {
         try {
             TransactionsRequest request = TransactionsRequest.newBuilder()
                     .setSymbol(symbol)
-                    .setTimestamp(Timestamp.newBuilder().setSeconds(date.toEpochSecond(ZoneOffset.UTC)).build())
+                    .setTimestamp(date)
                     .build();
 
             TransactionsResponse response = blockingStub.transactionsList(request);
@@ -251,7 +250,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
     }
 
 
-*/
+
     public void subscribeForPriceUpdates(List<String> symbols, BerzaClient client ) {
         String clientId=client.clientInfo.getClientId();
         SubscribeRequest subscribeRequest = SubscribeRequest.newBuilder()

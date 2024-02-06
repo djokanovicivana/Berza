@@ -8,17 +8,14 @@ public interface TransactionsRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.google.protobuf.Timestamp timestamp = 1;</code>
+   * <code>string timestamp = 1;</code>
    */
-  boolean hasTimestamp();
+  java.lang.String getTimestamp();
   /**
-   * <code>.google.protobuf.Timestamp timestamp = 1;</code>
+   * <code>string timestamp = 1;</code>
    */
-  com.google.protobuf.Timestamp getTimestamp();
-  /**
-   * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-   */
-  com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder();
+  com.google.protobuf.ByteString
+      getTimestampBytes();
 
   /**
    * <code>string symbol = 2;</code>

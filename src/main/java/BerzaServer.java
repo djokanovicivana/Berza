@@ -3,9 +3,12 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import rs.raf.pds.v5.z2.gRPC.*;
 
+import javax.swing.text.DateFormatter;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -31,7 +34,7 @@ public class BerzaServer {
 
         new Thread(berzaServiceImpl::startSocketServer).start();
 
-        //berzaServiceImpl.sendTcpStockUpdates();
+        berzaServiceImpl.scheduleHourlyPriceUpdates();;
 
 
         server.awaitTermination();
@@ -66,7 +69,7 @@ public class BerzaServer {
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("New client connected: " + clientSocket.getInetAddress());
                     new Thread(() -> handleSocketClient(clientSocket)).start();
-                    scheduleHourlyPriceUpdates();
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -286,9 +289,11 @@ public class BerzaServer {
                         sellerId = client.getClientId();
                     }}}
 
-
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String formattedDate = currentDate.format(formatter);
             if (matchingSaleOffer != null && sellerId!=null) {
-                // Izvrsi transakciju
+
                 executeTransaction(clientId,sellerId, matchingSaleOffer, numberOfShares);
                 Transaction transaction=Transaction.newBuilder()
                         .setPrice(price)
@@ -296,8 +301,10 @@ public class BerzaServer {
                                         .setSymbol(symbol)
                                                 .setBuyerClientId(clientId)
                                                         .setSellerClientId(sellerId)
+                        .setTimestamp(formattedDate)
                                                                 .build();
                 writeToFile(transaction);
+                transactionList.add(transaction);
                 updateCompanyPrice(symbol, price);
 
                 // Ako je transakcija uspesna, odgovori sa BuyOrderResponse
@@ -494,7 +501,7 @@ public class BerzaServer {
 
 
 
-                    // Slanje obaveštenja korisniku preko TCP
+
                     writer.println(notification);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -504,7 +511,7 @@ public class BerzaServer {
 
 
 
-        // Metoda za slanje obaveštenja o promeni cene
+
 
 
 
@@ -534,11 +541,11 @@ public class BerzaServer {
         private void scheduleHourlyPriceUpdates() {
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
             scheduler.scheduleAtFixedRate(() -> {
-                // Ovde pozovite funkciju koja šalje poslednje cene akcija
+
                 sendHourlyPriceUpdates();
-            }, 0, 1, TimeUnit.MINUTES); // Promenite vreme perioda prema potrebi
+            }, 0, 1, TimeUnit.MINUTES);
         }
-        // Promenite deo koda u metodi sendHourlyPriceUpdates() da koristi notifySubscribers metod
+
         private void sendHourlyPriceUpdates() {
             for (Map.Entry<String, Client> entry : registeredClients.entrySet()) {
                 String clientId = entry.getKey();
@@ -577,6 +584,24 @@ public class BerzaServer {
                     e.printStackTrace();
                 }
             }
+        }
+        public void transactionsList(TransactionsRequest request, StreamObserver<TransactionsResponse> responseObserver) {
+            String symbol = request.getSymbol();
+            String date = request.getTimestamp();
+
+
+            List<Transaction> filteredTransactions = transactionList.stream()
+                    .filter(transaction -> transaction.getSymbol().equals(symbol))
+                    .filter(transaction -> transaction.getTimestamp().equals(date))
+                    .collect(Collectors.toList());
+
+            TransactionsResponse response = TransactionsResponse.newBuilder()
+                    .addAllTransactions(filteredTransactions)
+                    .build();
+
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
         }
 
 

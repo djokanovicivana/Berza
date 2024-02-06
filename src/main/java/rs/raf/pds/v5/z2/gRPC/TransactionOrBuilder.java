@@ -48,15 +48,12 @@ public interface TransactionOrBuilder extends
   double getPrice();
 
   /**
-   * <code>.google.protobuf.Timestamp timestamp = 6;</code>
+   * <code>string timestamp = 6;</code>
    */
-  boolean hasTimestamp();
+  java.lang.String getTimestamp();
   /**
-   * <code>.google.protobuf.Timestamp timestamp = 6;</code>
+   * <code>string timestamp = 6;</code>
    */
-  com.google.protobuf.Timestamp getTimestamp();
-  /**
-   * <code>.google.protobuf.Timestamp timestamp = 6;</code>
-   */
-  com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder();
+  com.google.protobuf.ByteString
+      getTimestampBytes();
 }
