@@ -2,3 +2,9 @@ Symbol: GOOGL, Price: 100.000000, Shares: 300, Buyer: 8f6fa323-942e-4876-83c8-1a
 Symbol: GOOGL, Price: 200.000000, Shares: 200, Buyer: acfe1f77-cfc3-40fe-8e1e-20fd75d46fa8, Seller: f03e3b48-dc95-4d1e-9971-eccb6e9c0920
 Symbol: GOOGL, Price: 150.000000, Shares: 100, Buyer: 56f09ede-4fe4-494b-9c3c-eefee6d840f7, Seller: 3be74b1d-0c5d-406a-83e0-cabb4eb2fd8b
 Symbol: ADBE, Price: 100.000000, Shares: 300, Buyer: 0c343696-0af5-4dd3-87da-e72b1c27cdf4, Seller: 008a23ef-6f4e-40b4-af9b-373cae1e10a1
+Symbol: MSFT, Price: 400.000000, Shares: 200, Buyer: 19154e3f-b75f-497e-92d2-eb1573f92b28, Seller: c01978de-61af-4744-ac89-d1d1a70b50cf
+Symbol: MSFT, Price: 300.000000, Shares: 100, Buyer: 431e6138-5c61-4f86-82fe-92d108347712, Seller: 543c47dd-40fb-4762-af05-8ca5e5225dbf
+Symbol: MSFT, Price: 500.000000, Shares: 100, Buyer: e1540a45-923e-4d47-b787-4eff2d62040d, Seller: a3bdee77-a192-453b-bf45-43ea5028b131
+Symbol: MSFT, Price: 350.000000, Shares: 100, Buyer: 582c4df5-a113-4999-81b3-13598dfd53f8, Seller: 59b0472b-8623-41bf-89c9-f237445a5f9f
+Symbol: AAPL, Price: 100.000000, Shares: 100, Buyer: 59b0472b-8623-41bf-89c9-f237445a5f9f, Seller: 582c4df5-a113-4999-81b3-13598dfd53f8
+Symbol: MSFT, Price: 700.000000, Shares: 100, Buyer: 1c618a35-784d-4d0d-8b56-76002365c4bf, Seller: be63262c-90b7-442d-82d6-3815e05ac3fb

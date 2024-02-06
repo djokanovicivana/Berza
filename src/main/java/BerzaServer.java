@@ -11,6 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class BerzaServer {
@@ -63,7 +66,7 @@ public class BerzaServer {
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("New client connected: " + clientSocket.getInetAddress());
                     new Thread(() -> handleSocketClient(clientSocket)).start();
-                    //sendTcpStockUpdates();
+                    scheduleHourlyPriceUpdates();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -337,7 +340,7 @@ public class BerzaServer {
                     registeredClients.put(buyerClientId, buyerClient);
 
                 } else {
-                    // Kupac nema prethodno kupljenih akcija te kompanije, dodaj novu
+
                     AllShares buyerNewShares = AllShares.newBuilder()
                             .setSymbol(saleOffer.getSymbol())
                             .setTotalShares(numberOfShares)
@@ -347,7 +350,7 @@ public class BerzaServer {
                     registeredClients.put(buyerClientId, buyerClient);
                 }
 
-                // Ažuriraj broj akcija kod prodavca
+
                 int sellerSharesIndex = -1;
                 for (int i = 0; i < sellerClient.getSharesCount(); i++) {
                     if (sellerClient.getSaleOffers(i).getSymbol().equals(saleOffer.getSymbol())) {
@@ -389,7 +392,7 @@ public class BerzaServer {
 
 
 
-        // Metoda za dodavanje naloga za kupovinu u listu aktivnih naloga
+
         private void addBuyOrderToPendingList(String buyerClientId, BuyOrderRequest buyOrderRequest) {
             int numberOfSharesToBuy = buyOrderRequest.getNumberOfShares();
             String symbolToBuy = buyOrderRequest.getSymbol();
@@ -398,7 +401,7 @@ public class BerzaServer {
             Client buyerClient = registeredClients.get(buyerClientId);
 
             if (buyerClient != null) {
-                // Dodaj novu ponudu za kupovinu u listu kod kupca
+
                 BuyOffer newBuyOffer = BuyOffer.newBuilder()
                         .setSymbol(symbolToBuy)
                         .setPrice(priceToBuy)
@@ -442,6 +445,7 @@ public class BerzaServer {
         public void updateCompanyPrice(String symbol, double newPrice) {
             Company company = companies.get(symbol);
             if (company != null) {
+                double previousPrice=company.getPrice();
                 Company updatedCompany = company.toBuilder().setPrice(newPrice).build();
                 companies.put(symbol, updatedCompany);
                 System.out.println("Updated price for company " + symbol + " to " + newPrice);
@@ -449,27 +453,55 @@ public class BerzaServer {
                     String clientId = entry.getKey();
                     Client client = entry.getValue();
                     if (client.getSymbolsList().contains(symbol)) {
-                        sendNotificationToSubscribers(clientId, symbol, newPrice);
+                        sendNotificationToSubscribers(clientId, symbol, newPrice, previousPrice);
                     }
             }} else {
                 System.out.println("Company with symbol " + symbol + " not found.");
             }
         }
 
-            private void sendNotificationToSubscribers(String clientId, String symbol, double newPrice) {
-                Socket clientSocket = connections.get(clientId);
-                if (clientSocket != null) {
-                    try {
-                        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
-                        // Formatiranje obaveštenja
-                        String notification = String.format("Price change for symbol %s: new price is %.2f", symbol, newPrice);
-                        // Slanje obaveštenja korisniku preko TCP
-                        writer.println(notification);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        private void sendNotificationToSubscribers(String clientId, String symbol, double newPrice, double previousPrice) {
+            Socket clientSocket = connections.get(clientId);
+            if (clientSocket != null) {
+                try {
+                    PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+
+                    // Formatiranje vremena u format dd.MM.yyyy.-hh'h' mm'm'
+                    String currentTime = java.time.LocalDateTime.now().toString().replace("T", "-").substring(0, 16);
+
+                    // Pronalaženje prethodne cene i izračunavanje promene
+                    Company company = companies.get(symbol);
+                    double change = ((newPrice - previousPrice) / previousPrice) * 100;
+                    String changeSign = change >= 0 ? "+" : "-";
+                    String changeArrow = change >= 0 ? "↑" : "↓";
+                    String changeColor = change >= 0 ? "\u001B[32m" : "\u001B[31m";
+                    String resetColor = "\u001B[0m";
+
+
+                    String notification = String.format("Company: %-5s, Time: %s New price: %.2f Change: %s%s %.2f%% %s %.2f%s",
+                            symbol,
+                            currentTime,
+                            newPrice,
+                            changeColor,
+                            changeSign,
+                            Math.abs(change),
+                            changeArrow,
+                            previousPrice,
+                            resetColor);
+
+
+
+
+
+
+                    // Slanje obaveštenja korisniku preko TCP
+                    writer.println(notification);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+        }
+
 
 
         // Metoda za slanje obaveštenja o promeni cene
@@ -499,6 +531,54 @@ public class BerzaServer {
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
+        private void scheduleHourlyPriceUpdates() {
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.scheduleAtFixedRate(() -> {
+                // Ovde pozovite funkciju koja šalje poslednje cene akcija
+                sendHourlyPriceUpdates();
+            }, 0, 1, TimeUnit.MINUTES); // Promenite vreme perioda prema potrebi
+        }
+        // Promenite deo koda u metodi sendHourlyPriceUpdates() da koristi notifySubscribers metod
+        private void sendHourlyPriceUpdates() {
+            for (Map.Entry<String, Client> entry : registeredClients.entrySet()) {
+                String clientId = entry.getKey();
+                Client client = entry.getValue();
+                for (String symbol : client.getSymbolsList()) {
+                    Company company = companies.get(symbol);
+                    if (company != null) {
+                        double newPrice = company.getPrice();
+                        notifySubscribers(clientId, symbol, newPrice);
+                    }
+                }
+            }
+        }
+
+        private void notifySubscribers(String clientId, String symbol, double newPrice) {
+            Socket clientSocket = connections.get(clientId);
+            if (clientSocket != null) {
+                try {
+                    PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+
+                    // Formatiranje vremena u format dd.MM.yyyy.-hh'h' mm'm'
+                    String currentTime = java.time.LocalDateTime.now().toString().replace("T", "-").substring(0, 16);
+
+                    Company company = companies.get(symbol);
+
+
+                    // Formatiranje obaveštenja
+                    String notification = String.format("Symbol: %-5s, Time: %s, Price: %.2f",
+                            symbol,
+                            currentTime,
+                            newPrice);
+
+                    // Slanje obaveštenja korisniku preko TCP
+                    writer.println(notification);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
 
 
 
