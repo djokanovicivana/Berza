@@ -73,7 +73,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
                 .setPrice(200.0)
                 .build();
         AllShares stock2 = AllShares.newBuilder()
-                .setSymbol("GOOGL")
+                .setSymbol("ADBE")
                 .setTotalShares(500)
                 .setPrice(100.0)
                 .build();
@@ -144,7 +144,7 @@ public class BerzaClient extends BerzaServiceGrpc.BerzaServiceImplBase {
         }else if(userInput.startsWith("subscribe")){
             String [] parts= userInput.split(" ");
             List<String> symbols=new ArrayList<>();
-            for(int i=1;i<=parts.length;i++){
+            for(int i=1;i<parts.length;i++){
                 symbols.add(parts[i]);
             }
             berzaClient.subscribeForPriceUpdates(symbols, berzaClient);

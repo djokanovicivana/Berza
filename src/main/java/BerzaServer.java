@@ -48,6 +48,13 @@ public class BerzaServer {
                 companies.put(c.getSymbol(), c);
             }
 
+            // Dijagnostički ispis svih kompanija sa njihovim simbolima
+            System.out.println("Inicijalizovane kompanije:");
+            for (Map.Entry<String, Company> entry : companies.entrySet()) {
+                String symbol = entry.getKey();
+                Company company = entry.getValue();
+                System.out.println("Simbol: " + symbol + ", Naziv: " + company.getName());
+            }
         }
             private void startSocketServer() {
             try (ServerSocket serverSocket = new ServerSocket(8888)) {
@@ -438,10 +445,36 @@ public class BerzaServer {
                 Company updatedCompany = company.toBuilder().setPrice(newPrice).build();
                 companies.put(symbol, updatedCompany);
                 System.out.println("Updated price for company " + symbol + " to " + newPrice);
-            } else {
+                for (Map.Entry<String, Client> entry : registeredClients.entrySet()) {
+                    String clientId = entry.getKey();
+                    Client client = entry.getValue();
+                    if (client.getSymbolsList().contains(symbol)) {
+                        sendNotificationToSubscribers(clientId, symbol, newPrice);
+                    }
+            }} else {
                 System.out.println("Company with symbol " + symbol + " not found.");
             }
         }
+
+            private void sendNotificationToSubscribers(String clientId, String symbol, double newPrice) {
+                Socket clientSocket = connections.get(clientId);
+                if (clientSocket != null) {
+                    try {
+                        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+                        // Formatiranje obaveštenja
+                        String notification = String.format("Price change for symbol %s: new price is %.2f", symbol, newPrice);
+                        // Slanje obaveštenja korisniku preko TCP
+                        writer.println(notification);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+        // Metoda za slanje obaveštenja o promeni cene
+
+
 
         public void priceUpdates(SubscribeRequest request, StreamObserver<SubscribeResponse> responseObserver) {
             String clientId = request.getClientId();

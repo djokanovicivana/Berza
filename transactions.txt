@@ -1,1 +1,4 @@
 Symbol: GOOGL, Price: 100.000000, Shares: 300, Buyer: 8f6fa323-942e-4876-83c8-1abefce99cfb, Seller: ceaa7ed6-b0e4-46cd-b6b8-4e4ebe82810b
+Symbol: GOOGL, Price: 200.000000, Shares: 200, Buyer: acfe1f77-cfc3-40fe-8e1e-20fd75d46fa8, Seller: f03e3b48-dc95-4d1e-9971-eccb6e9c0920
+Symbol: GOOGL, Price: 150.000000, Shares: 100, Buyer: 56f09ede-4fe4-494b-9c3c-eefee6d840f7, Seller: 3be74b1d-0c5d-406a-83e0-cabb4eb2fd8b
+Symbol: ADBE, Price: 100.000000, Shares: 300, Buyer: 0c343696-0af5-4dd3-87da-e72b1c27cdf4, Seller: 008a23ef-6f4e-40b4-af9b-373cae1e10a1
